@@ -625,41 +625,88 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 ![Password Reset Email Inbox](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png)
 *Password reset email as received in inbox*
 
-#### **5. Automatic Read Fallback & Recovery System** 🔄
+#### **5. User Interface & Experience** 🎨
 
 **Features:**
-- **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP databases
-- **Zero-Downtime Reads**: Users continue to see content even when PRIMARY database is down
-- **Health Check System**: Background health checks (every 4 minutes) keep BACKUP databases warm
-- **Neon Cold Start Prevention**: Health checks prevent auto-suspend on free tier databases
-- **Transparent Operation**: No user-visible errors, automatic recovery
-- **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
+- Responsive design for desktop, tablet, and mobile
+- Progressive Web App (PWA) capabilities
+- Modern UI with smooth animations
+- Cross-platform consistency
 
-**Visual Demonstrations:**
+**Desktop Screenshots:**
 
-![System Architecture Diagram](PhoenixFlix_OutputSamples/Auto_Recovery/System_Diagram_AutoRecovery.png)
-*High-level system architecture showing PRIMARY/BACKUP databases and health check system*
+![Homepage](PhoenixFlix_OutputSamples/PC/PC_Homepage.png)
+*PhoenixFlix homepage with featured content*
 
-![Read Fallback Decision Tree](PhoenixFlix_OutputSamples/Auto_Recovery/Read_FallBack_Decision_AutoRecovery.png)
-*Decision tree showing automatic fallback logic when PRIMARY database fails*
+![Movies Page](PhoenixFlix_OutputSamples/PC/PC_movies.png)
+*Movie browsing interface with search and filters*
 
-![Application Startup Flow](PhoenixFlix_OutputSamples/Auto_Recovery/App_StartUp_AutoRecovery.png)
-*Application startup sequence with database connection setup and health check initialization*
+![Movie Details](PhoenixFlix_OutputSamples/PC/PC_MovieDetails.png)
+*Detailed movie information page*
 
-**📚 Comprehensive Documentation:**
+![LDS Content](PhoenixFlix_OutputSamples/PC/PC_LDS.png)
+*LDS content section with spiritual videos*
 
-For detailed implementation guides, see the AutoRecovery documentation in `BT_AutoRecover/`:
+![Guestbook](PhoenixFlix_OutputSamples/PC/PC_GB_intro.png)
+*Community guestbook feature*
 
-- **[Analysis_Report_AutoRecovery.md](Analysis_Report_AutoRecovery.md)** - Complete technical analysis with architecture overview, implementation details, and code references
-- **[BUILD_ORDER_AutoRecovery.md](BUILD_ORDER_AutoRecovery.md)** - Step-by-step implementation checklist with 8 phases and testing strategies
-- **[FLOWCHARTS_AutoRecovery.md](FLOWCHARTS_AutoRecovery.md)** - Visual architecture diagrams, data flow diagrams, and implementation patterns
+![Favorites](PhoenixFlix_OutputSamples/PC/PC_FV.png)
+*User favorites collection*
 
-**Key Benefits:**
-- ✅ **High Availability**: Application continues working even when PRIMARY database is down
-- ✅ **No Manual Intervention**: Automatic failover requires no administrator action
-- ✅ **Better User Experience**: Users see content instead of error messages
-- ✅ **Free Tier Compatible**: Health checks prevent Neon cold starts on free tier
-- ✅ **Production Ready**: Comprehensive error handling and logging for all scenarios
+![Watchlist](PhoenixFlix_OutputSamples/PC/PC_WL.png)
+*User watchlist management*
+
+![Login](PhoenixFlix_OutputSamples/PC/PC_Login.png)
+*User login interface*
+
+![Register](PhoenixFlix_OutputSamples/PC/PC_Register.png)
+*User registration interface*
+
+![Passkey Authentication](PhoenixFlix_OutputSamples/PC/PC_Create_Passkey_AUTH.png)
+*WebAuthn/Passkey setup interface*
+
+![Login with Passkey](PhoenixFlix_OutputSamples/PC/PC_Login_with_Passkey.png)
+*Passwordless login using Passkeys*
+
+![Admin Panel](PhoenixFlix_OutputSamples/PC/PC_Admins.png)
+*Admin moderation dashboard*
+
+![Manifesto](PhoenixFlix_OutputSamples/PC/PC_Manifesto.png)
+*PhoenixFlix mission and values*
+
+**Mobile Screenshots (iOS):**
+
+![iOS App](PhoenixFlix_OutputSamples/iOS/iOS_App.PNG)
+*iOS app interface*
+
+![iOS Login](PhoenixFlix_OutputSamples/iOS/iOS_Login.PNG)
+*iOS login screen*
+
+![iOS LDS](PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG)
+*LDS content on iOS*
+
+![iOS Face ID](PhoenixFlix_OutputSamples/iOS_FaceID.jpg)
+*Biometric authentication with Face ID*
+
+![iOS Passkey](PhoenixFlix_OutputSamples/iOS_Passkey.jpg)
+*Passkey authentication on iOS*
+
+![iOS Installation](PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG)
+*PWA installation instructions*
+
+**Mobile Screenshots (Android):**
+
+![Android App](PhoenixFlix_OutputSamples/Android/Android_App.jpg)
+*Android app interface*
+
+![Android LDS](PhoenixFlix_OutputSamples/Android/Android_LDS.jpg)
+*LDS content on Android*
+
+![Android Watchlist](PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg)
+*Watchlist on Android*
+
+![Android Admins](PhoenixFlix_OutputSamples/Android/Android_Admins.jpg)
+*Admin features on Android*
 
 **Automation Tools** (in root directory):
 - **[switch-environment.ps1](switch-environment.ps1)**: Automated environment switcher
