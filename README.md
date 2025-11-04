@@ -613,10 +613,10 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="600"/>
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="400"/>
 *Password reset request interface*
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="600"/>
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="400"/>
 *Password reset email template*
 
 <img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png" alt="Password Reset Sent" width="600"/>
@@ -685,10 +685,10 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 <img src="PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG" alt="iOS LDS" width="400"/>
 *LDS content on iOS*
 
-<img src="PhoenixFlix_OutputSamples/iOS_FaceID.jpg" alt="iOS Face ID" width="400"/>
+<img src="PhoenixFlix_OutputSamples/iOS_FaceID.jpg" alt="iOS Face ID" width="300"/>
 *Biometric authentication with Face ID*
 
-<img src="PhoenixFlix_OutputSamples/iOS_Passkey.jpg" alt="iOS Passkey" width="400"/>
+<img src="PhoenixFlix_OutputSamples/iOS_Passkey.jpg" alt="iOS Passkey" width="300"/>
 *Passkey authentication on iOS*
 
 <img src="PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG" alt="iOS Installation" width="400"/>
@@ -696,16 +696,16 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Mobile Screenshots (Android):**
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_App.jpg" alt="Android App" width="400"/>
+<img src="PhoenixFlix_OutputSamples/Android/Android_App.jpg" alt="Android App" width="300"/>
 *Android app interface*
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_LDS.jpg" alt="Android LDS" width="400"/>
+<img src="PhoenixFlix_OutputSamples/Android/Android_LDS.jpg" alt="Android LDS" width="300"/>
 *LDS content on Android*
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg" alt="Android Watchlist" width="400"/>
+<img src="PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg" alt="Android Watchlist" width="300"/>
 *Watchlist on Android*
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_Admins.jpg" alt="Android Admins" width="400"/>
+<img src="PhoenixFlix_OutputSamples/Android/Android_Admins.jpg" alt="Android Admins" width="300"/>
 *Admin features on Android*
 
 **Automation Tools** (in root directory):
