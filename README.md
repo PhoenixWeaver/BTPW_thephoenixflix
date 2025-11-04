@@ -222,10 +222,10 @@ PhoenixFlix implements **optimistic locking** to handle concurrent database oper
 - Concurrent guestbook submissions
 - Admin moderation actions
 
-![Optimistic Locking Sequence Diagram](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png" alt="Optimistic Locking Sequence Diagram" width="700"/>
 *Figure 1: Optimistic locking sequence for concurrent user updates*
 
-![Optimistic Locking Flowchart](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png" alt="Optimistic Locking Flowchart" width="700"/>
 *Figure 2: Flowchart showing version-based conflict resolution*
 
 For detailed implementation, see optimistic locking diagrams in `PhoenixFlix_OutputSamples/Structures/`
@@ -367,7 +367,7 @@ PhoenixFlix/
 
 PhoenixFlix implements a comprehensive account management system with enterprise-level security features.
 
-![Account Management Architecture](PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png" alt="Account Management Architecture" width="700"/>
 *Figure 3: Complete account management architecture*
 
 ### **Email Verification Flow**
@@ -384,7 +384,7 @@ PhoenixFlix implements a comprehensive account management system with enterprise
 4. **Password Update**: User sets new password via token
 5. **Account Secured**: Password is updated and token invalidated
 
-![Authentication Flow](PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png" alt="Authentication Flow" width="700"/>
 *Figure 4: Complete authentication flow including email verification and password reset*
 
 ### **Email Infrastructure**
@@ -541,13 +541,13 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-![Dual Write Pattern](PhoenixFlix_OutputSamples/DualDatabases/Dual_write.png)
+<img src="PhoenixFlix_OutputSamples/DualDatabases/Dual_write.png" alt="Dual Write Pattern" width="600"/>
 *Dual-write pattern: Writes go to both primary and backup databases simultaneously*
 
-![Read from Primary](PhoenixFlix_OutputSamples/DualDatabases/Read_Prime.png)
+<img src="PhoenixFlix_OutputSamples/DualDatabases/Read_Prime.png" alt="Read from Primary" width="600"/>
 *Read operations use primary database only for optimal performance*
 
-![Cross-Database Fallback](PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png)
+<img src="PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png" alt="Cross-Database Fallback" width="600"/>
 *Cross-database fallback mechanism when primary is unavailable*
 
 #### **2. Admin Content Management** 🗑️
@@ -561,22 +561,22 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-![Admin Soft Delete](PhoenixFlix_OutputSamples/AdminRights/Admin_SoftDelete.png)
+<img src="PhoenixFlix_OutputSamples/AdminRights/Admin_SoftDelete.png" alt="Admin Soft Delete" width="600"/>
 *Admin soft delete interface with deletion reason*
 
-![Deletion Tracker](PhoenixFlix_OutputSamples/AdminRights/Deletion_Tracker.png)
+<img src="PhoenixFlix_OutputSamples/AdminRights/Deletion_Tracker.png" alt="Deletion Tracker" width="600"/>
 *Deletion tracking admin page showing all deleted content with filtering*
 
-![Content Restoration](PhoenixFlix_OutputSamples/AdminRights/Content_Restoration_by_Admin.png)
+<img src="PhoenixFlix_OutputSamples/AdminRights/Content_Restoration_by_Admin.png" alt="Content Restoration" width="600"/>
 *Admin content restoration interface*
 
-![Content Refresh](PhoenixFlix_OutputSamples/AdminRights/Content_Refresh_Admin.png)
+<img src="PhoenixFlix_OutputSamples/AdminRights/Content_Refresh_Admin.png" alt="Content Refresh" width="600"/>
 *Weekly content refresh admin controls*
 
-![Admin Removal Reason](PhoenixFlix_OutputSamples/AdminRights/Admin_Removal_Reason.png)
+<img src="PhoenixFlix_OutputSamples/AdminRights/Admin_Removal_Reason.png" alt="Admin Removal Reason" width="600"/>
 *Admin deletion reason prompt for audit trail*
 
-![Comment Pending Approval](PhoenixFlix_OutputSamples/AdminRights/Comment_Pending_Approval.png)
+<img src="PhoenixFlix_OutputSamples/AdminRights/Comment_Pending_Approval.png" alt="Comment Pending Approval" width="600"/>
 *Admin guestbook moderation interface*
 
 #### **3. Account Management System** 👤
@@ -591,16 +591,16 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-![Architecture Overview](PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png" alt="Architecture Overview" width="700"/>
 *Complete account management architecture diagram*
 
-![Authentication Flow](PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png" alt="Authentication Flow" width="700"/>
 *Full authentication flow including email verification and password reset*
 
-![Optimistic Locking Sequence](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png" alt="Optimistic Locking Sequence" width="700"/>
 *Sequence diagram for concurrent operations with optimistic locking*
 
-![Optimistic Locking Flowchart](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png)
+<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png" alt="Optimistic Locking Flowchart" width="700"/>
 *Flowchart showing version-based conflict resolution*
 
 #### **4. Password Reset System** 🔐
@@ -613,16 +613,16 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-![Password Reset Request](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="600"/>
 *Password reset request interface*
 
-![Password Reset Email](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="600"/>
 *Password reset email template*
 
-![Password Reset Sent](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png" alt="Password Reset Sent" width="600"/>
 *Confirmation message after password reset email is sent*
 
-![Password Reset Email Inbox](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png" alt="Password Reset Email Inbox" width="600"/>
 *Password reset email as received in inbox*
 
 #### **5. User Interface & Experience** 🎨
@@ -635,77 +635,77 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Desktop Screenshots:**
 
-![Homepage](PhoenixFlix_OutputSamples/PC/PC_Homepage.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Homepage.png" alt="Homepage" width="600"/>
 *PhoenixFlix homepage with featured content*
 
-![Movies Page](PhoenixFlix_OutputSamples/PC/PC_movies.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_movies.png" alt="Movies Page" width="600"/>
 *Movie browsing interface with search and filters*
 
-![Movie Details](PhoenixFlix_OutputSamples/PC/PC_MovieDetails.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_MovieDetails.png" alt="Movie Details" width="600"/>
 *Detailed movie information page*
 
-![LDS Content](PhoenixFlix_OutputSamples/PC/PC_LDS.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_LDS.png" alt="LDS Content" width="600"/>
 *LDS content section with spiritual videos*
 
-![Guestbook](PhoenixFlix_OutputSamples/PC/PC_GB_intro.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_GB_intro.png" alt="Guestbook" width="600"/>
 *Community guestbook feature*
 
-![Favorites](PhoenixFlix_OutputSamples/PC/PC_FV.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_FV.png" alt="Favorites" width="600"/>
 *User favorites collection*
 
-![Watchlist](PhoenixFlix_OutputSamples/PC/PC_WL.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_WL.png" alt="Watchlist" width="600"/>
 *User watchlist management*
 
-![Login](PhoenixFlix_OutputSamples/PC/PC_Login.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Login.png" alt="Login" width="600"/>
 *User login interface*
 
-![Register](PhoenixFlix_OutputSamples/PC/PC_Register.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Register.png" alt="Register" width="600"/>
 *User registration interface*
 
-![Passkey Authentication](PhoenixFlix_OutputSamples/PC/PC_Create_Passkey_AUTH.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Create_Passkey_AUTH.png" alt="Passkey Authentication" width="600"/>
 *WebAuthn/Passkey setup interface*
 
-![Login with Passkey](PhoenixFlix_OutputSamples/PC/PC_Login_with_Passkey.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Login_with_Passkey.png" alt="Login with Passkey" width="600"/>
 *Passwordless login using Passkeys*
 
-![Admin Panel](PhoenixFlix_OutputSamples/PC/PC_Admins.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Admins.png" alt="Admin Panel" width="600"/>
 *Admin moderation dashboard*
 
-![Manifesto](PhoenixFlix_OutputSamples/PC/PC_Manifesto.png)
+<img src="PhoenixFlix_OutputSamples/PC/PC_Manifesto.png" alt="Manifesto" width="600"/>
 *PhoenixFlix mission and values*
 
 **Mobile Screenshots (iOS):**
 
-![iOS App](PhoenixFlix_OutputSamples/iOS/iOS_App.PNG)
+<img src="PhoenixFlix_OutputSamples/iOS/iOS_App.PNG" alt="iOS App" width="400"/>
 *iOS app interface*
 
-![iOS Login](PhoenixFlix_OutputSamples/iOS/iOS_Login.PNG)
+<img src="PhoenixFlix_OutputSamples/iOS/iOS_Login.PNG" alt="iOS Login" width="400"/>
 *iOS login screen*
 
-![iOS LDS](PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG)
+<img src="PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG" alt="iOS LDS" width="400"/>
 *LDS content on iOS*
 
-![iOS Face ID](PhoenixFlix_OutputSamples/iOS_FaceID.jpg)
+<img src="PhoenixFlix_OutputSamples/iOS_FaceID.jpg" alt="iOS Face ID" width="400"/>
 *Biometric authentication with Face ID*
 
-![iOS Passkey](PhoenixFlix_OutputSamples/iOS_Passkey.jpg)
+<img src="PhoenixFlix_OutputSamples/iOS_Passkey.jpg" alt="iOS Passkey" width="400"/>
 *Passkey authentication on iOS*
 
-![iOS Installation](PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG)
+<img src="PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG" alt="iOS Installation" width="400"/>
 *PWA installation instructions*
 
 **Mobile Screenshots (Android):**
 
-![Android App](PhoenixFlix_OutputSamples/Android/Android_App.jpg)
+<img src="PhoenixFlix_OutputSamples/Android/Android_App.jpg" alt="Android App" width="400"/>
 *Android app interface*
 
-![Android LDS](PhoenixFlix_OutputSamples/Android/Android_LDS.jpg)
+<img src="PhoenixFlix_OutputSamples/Android/Android_LDS.jpg" alt="Android LDS" width="400"/>
 *LDS content on Android*
 
-![Android Watchlist](PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg)
+<img src="PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg" alt="Android Watchlist" width="400"/>
 *Watchlist on Android*
 
-![Android Admins](PhoenixFlix_OutputSamples/Android/Android_Admins.jpg)
+<img src="PhoenixFlix_OutputSamples/Android/Android_Admins.jpg" alt="Android Admins" width="400"/>
 *Admin features on Android*
 
 **Automation Tools** (in root directory):
