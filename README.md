@@ -235,8 +235,8 @@ For detailed implementation, see optimistic locking diagrams in `PhoenixFlix_Out
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/thephoenixflix/BTPW_thephoenixflix.git
-cd BTPW_thephoenixflix
+git clone https://github.com/PhoenixWeaver/BTPW_PhoenixFlix.git
+cd BTPW_PhoenixFlix
 ```
 
 2. **Install dependencies**
@@ -807,6 +807,7 @@ Password reset email templates in `PhoenixFlix_OutputSamples/Reset_Password_Emai
 *Advanced search, filtering, and content moderation system*
 
 All diagrams and screenshots demonstrate production-ready features with enterprise-level polish and comprehensive documentation of the PhoenixFlix platform.
+
 
 ## 📞 Support
 
