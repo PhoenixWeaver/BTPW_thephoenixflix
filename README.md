@@ -55,6 +55,9 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 
 #### **📊 Database Engineering**
 - ✅ **Dual PostgreSQL Setup**: Movies database (Neon) + Christian content database (Aiven)
+- ✅ **Primary/Backup Database Architecture**: Dual-write pattern with automatic read fallback
+- ✅ **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP on database failures
+- ✅ **Health Check System**: Periodic health checks (every 4 minutes) to keep BACKUP databases warm
 - ✅ **Optimistic Locking**: Version-based concurrency control for race condition prevention
 - ✅ **Cross-Database Relationships**: Bridge tables for unified user collections
 - ✅ **Data Import Systems**: Automated TMDB and YouTube content integration
@@ -131,6 +134,7 @@ This project showcases several **innovative approaches**:
 7. **Advanced Account Management**: Comprehensive email verification and password reset system
 8. **Distributed Infrastructure**: Render (Backend) + Vercel (Frontend/Email CDN) architecture
 9. **Go Routines**: Efficient concurrent request handling with safe database operations
+10. **Automatic Read Fallback & Recovery**: Intelligent failover system with automatic database fallback and health checks
 
 ## ✨ Features
 
@@ -179,7 +183,11 @@ This project showcases several **innovative approaches**:
 
 ### **Database Architecture**
 - **Movies Database (Neon)**: Users, movies, favorites, watchlist, guestbook, **deleted_content tracking table**
+  - **PRIMARY Database**: Aiven PostgreSQL (source of truth)
+  - **BACKUP Database**: Neon PostgreSQL (automatic fallback for reads)
 - **Christian Content Database (Aiven)**: Bible videos, Christian songs, LDS content, spiritual ratings
+  - **PRIMARY LDS Database**: Aiven PostgreSQL (source of truth)
+  - **BACKUP LDS Database**: Neon PostgreSQL (automatic fallback for reads)
   - **LDS Database Connection**: Configured via `DATABASE_URL_LDS` environment variable
   - Current LDS databases:
     - Development: `lds2025-lds2025.d.aivencloud.com` (Aiven)
@@ -187,6 +195,10 @@ This project showcases several **innovative approaches**:
 - **Cross-Database**: 
   - Bridge tables for unified user experience
   - **Deletion tracking centralized**: All deletions (movies and LDS) tracked in movies database `deleted_content` table
+- **Automatic Recovery System**:
+  - **Automatic Read Fallback**: All read operations automatically fallback to BACKUP if PRIMARY fails
+  - **Health Check System**: Background goroutine keeps BACKUP databases warm (prevents Neon cold starts)
+  - **Transparent Failover**: No user-visible errors when PRIMARY is down (BACKUP serves reads automatically)
 
 ### **🔒 Race Condition Prevention with Optimistic Locking**
 
@@ -235,8 +247,8 @@ For detailed implementation, see optimistic locking diagrams in `PhoenixFlix_Out
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/PhoenixWeaver/BTPW_PhoenixFlix.git
-cd BTPW_PhoenixFlix
+git clone https://github.com/PhoenixWeaver/phoenixflix.git
+cd phoenixflix
 ```
 
 2. **Install dependencies**
@@ -247,10 +259,19 @@ go mod download
 3. **Setup environment variables**
 Create a `.env` file:
 ```env
+# PRIMARY Databases (Required)
 DATABASE_URL=postgres://username:password@host:port/database?sslmode=require
-DATABASE_URL_CHRISTIAN=postgres://username:password@host:port/database?sslmode=require
+DATABASE_URL_LDS=postgres://username:password@host:port/database?sslmode=require
+
+# BACKUP Databases (Optional - for automatic read fallback)
+DATABASE_URL_BACKUP=postgres://username:password@host:port/database?sslmode=require
+DATABASE_URL_LDS_BACKUP=postgres://username:password@host:port/database?sslmode=require
+
+# API Keys
 TMDB_API_KEY=your_tmdb_api_key
 YOUTUBE_API_KEY=your_youtube_api_key
+
+# Security
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 ENVIRONMENT=production
 
@@ -261,6 +282,9 @@ SMTP_USER=apikey_or_username
 SMTP_PASS=your_smtp_password
 SMTP_FROM=PhoenixFlix <no-reply@phoenixflix.app>
 SMTP_TLS=true
+
+# Server Port (defaults to 8080 if not set)
+PORT=8080
 ```
 
 4. **Run the application**
@@ -275,7 +299,7 @@ Open your browser to `http://localhost:8080`
 
 ```
 PhoenixFlix/
-├── main.go                 # Main application entry point
+├── BTPF.go                 # Main application entry point
 ├── data/                   # Repository layer (data access)
 │   ├── interfaces.go       # Repository contracts
 │   ├── movie_repository.go
@@ -299,15 +323,7 @@ PhoenixFlix/
 │   └── components/
 ├── logger/                  # Custom logging system
 ├── token/                   # JWT authentication
-├── import/                  # Database import utilities
-└── PhoenixFlix_OutputSamples/  # Visual documentation & screenshots
-    ├── Structures/         # Architecture diagrams
-    ├── AdminRights/        # Admin feature screenshots
-    ├── DualDatabases/      # Database architecture diagrams
-    ├── PC/                 # Desktop screenshots
-    ├── iOS/                # iOS screenshots
-    ├── Android/            # Android screenshots
-    └── Reset_Password_Email/  # Email template examples
+└── import/                  # Database import utilities
 ```
 
 ## 🔧 API Endpoints
@@ -534,94 +550,6 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 ![Cross-Database Fallback](PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png)
 *Cross-database fallback mechanism when primary is unavailable*
 
-#### **5. User Interface & Experience** 🎨
-
-**Features:**
-- Responsive design for desktop, tablet, and mobile
-- Progressive Web App (PWA) capabilities
-- Modern UI with smooth animations
-- Cross-platform consistency
-
-**Desktop Screenshots:**
-
-![Homepage](PhoenixFlix_OutputSamples/PC/PC_Homepage.png)
-*PhoenixFlix homepage with featured content*
-
-![Movies Page](PhoenixFlix_OutputSamples/PC/PC_movies.png)
-*Movie browsing interface with search and filters*
-
-![Movie Details](PhoenixFlix_OutputSamples/PC/PC_MovieDetails.png)
-*Detailed movie information page*
-
-![LDS Content](PhoenixFlix_OutputSamples/PC/PC_LDS.png)
-*LDS content section with spiritual videos*
-
-![Guestbook](PhoenixFlix_OutputSamples/PC/PC_GB_intro.png)
-*Community guestbook feature*
-
-![Favorites](PhoenixFlix_OutputSamples/PC/PC_FV.png)
-*User favorites collection*
-
-![Watchlist](PhoenixFlix_OutputSamples/PC/PC_WL.png)
-*User watchlist management*
-
-![Login](PhoenixFlix_OutputSamples/PC/PC_Login.png)
-*User login interface*
-
-![Register](PhoenixFlix_OutputSamples/PC/PC_Register.png)
-*User registration interface*
-
-![Passkey Authentication](PhoenixFlix_OutputSamples/PC/PC_Create_Passkey_AUTH.png)
-*WebAuthn/Passkey setup interface*
-
-![Login with Passkey](PhoenixFlix_OutputSamples/PC/PC_Login_with_Passkey.png)
-*Passwordless login using Passkeys*
-
-![Admin Panel](PhoenixFlix_OutputSamples/PC/PC_Admins.png)
-*Admin moderation dashboard*
-
-![Manifesto](PhoenixFlix_OutputSamples/PC/PC_Manifesto.png)
-*PhoenixFlix mission and values*
-
-**Mobile Screenshots (iOS):**
-
-![iOS App](PhoenixFlix_OutputSamples/iOS/iOS_App.PNG)
-*iOS app interface*
-
-![iOS Login](PhoenixFlix_OutputSamples/iOS/iOS_Login.PNG)
-*iOS login screen*
-
-![iOS LDS](PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG)
-*LDS content on iOS*
-
-![iOS Face ID](PhoenixFlix_OutputSamples/iOS_FaceID.jpg)
-*Biometric authentication with Face ID*
-
-![iOS Passkey](PhoenixFlix_OutputSamples/iOS_Passkey.jpg)
-*Passkey authentication on iOS*
-
-![iOS Installation](PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG)
-*PWA installation instructions*
-
-**Mobile Screenshots (Android):**
-
-![Android App](PhoenixFlix_OutputSamples/Android/Android_App.jpg)
-*Android app interface*
-
-![Android LDS](PhoenixFlix_OutputSamples/Android/Android_LDS.jpg)
-*LDS content on Android*
-
-![Android Watchlist](PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg)
-*Watchlist on Android*
-
-![Android Admins](PhoenixFlix_OutputSamples/Android/Android_Admins.jpg)
-*Admin features on Android*
-
-#### **6. Search & Content Filtering** 🔍
-
-![Search Feature](PhoenixFlix_OutputSamples/Searching_Fetching_Filtering_Censoring.png)
-*Advanced search, filtering, and content moderation system*
-
 #### **2. Admin Content Management** 🗑️
 
 **Features:**
@@ -697,6 +625,42 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 ![Password Reset Email Inbox](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png)
 *Password reset email as received in inbox*
 
+#### **5. Automatic Read Fallback & Recovery System** 🔄
+
+**Features:**
+- **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP databases
+- **Zero-Downtime Reads**: Users continue to see content even when PRIMARY database is down
+- **Health Check System**: Background health checks (every 4 minutes) keep BACKUP databases warm
+- **Neon Cold Start Prevention**: Health checks prevent auto-suspend on free tier databases
+- **Transparent Operation**: No user-visible errors, automatic recovery
+- **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
+
+**Visual Demonstrations:**
+
+![System Architecture Diagram](PhoenixFlix_OutputSamples/Auto_Recovery/System_Diagram_AutoRecovery.png)
+*High-level system architecture showing PRIMARY/BACKUP databases and health check system*
+
+![Read Fallback Decision Tree](PhoenixFlix_OutputSamples/Auto_Recovery/Read_FallBack_Decision_AutoRecovery.png)
+*Decision tree showing automatic fallback logic when PRIMARY database fails*
+
+![Application Startup Flow](PhoenixFlix_OutputSamples/Auto_Recovery/App_StartUp_AutoRecovery.png)
+*Application startup sequence with database connection setup and health check initialization*
+
+**📚 Comprehensive Documentation:**
+
+For detailed implementation guides, see the AutoRecovery documentation in `BT_AutoRecover/`:
+
+- **[Analysis_Report_AutoRecovery.md](Analysis_Report_AutoRecovery.md)** - Complete technical analysis with architecture overview, implementation details, and code references
+- **[BUILD_ORDER_AutoRecovery.md](BUILD_ORDER_AutoRecovery.md)** - Step-by-step implementation checklist with 8 phases and testing strategies
+- **[FLOWCHARTS_AutoRecovery.md](FLOWCHARTS_AutoRecovery.md)** - Visual architecture diagrams, data flow diagrams, and implementation patterns
+
+**Key Benefits:**
+- ✅ **High Availability**: Application continues working even when PRIMARY database is down
+- ✅ **No Manual Intervention**: Automatic failover requires no administrator action
+- ✅ **Better User Experience**: Users see content instead of error messages
+- ✅ **Free Tier Compatible**: Health checks prevent Neon cold starts on free tier
+- ✅ **Production Ready**: Comprehensive error handling and logging for all scenarios
+
 **Automation Tools** (in root directory):
 - **[switch-environment.ps1](switch-environment.ps1)**: Automated environment switcher
   - Usage: `.\switch-environment.ps1 production` or `.\switch-environment.ps1 local`
@@ -708,106 +672,46 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
   - Checks current configuration
   - Provides recommendations
 
-## 📸 **Complete Visual Documentation**
+### **Architecture Diagrams**
 
-### **📊 Architecture Diagrams**
+All architecture diagrams and flowcharts are located in `PhoenixFlix_OutputSamples/`:
 
-All architecture diagrams and flowcharts are located in `PhoenixFlix_OutputSamples/Structures/`:
+#### **Structures/** (`PhoenixFlix_OutputSamples/Structures/`)
+- **Optimistic_Locking_Sequence_Diagram.png**: Detailed sequence diagram for concurrent operations
+- **Optimistic_Locking_Flowchart.png**: Visual flowchart of race condition prevention
+- **Architecture_AccountManagement.png**: Complete account management architecture
+- **Authentication_Flow.png**: Full authentication flow including email verification
 
-| Diagram | Description |
-|---------|-------------|
-| [Optimistic_Locking_Sequence_Diagram.png](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png) | Detailed sequence diagram for concurrent operations with version control |
-| [Optimistic_Locking_Flowchart.png](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png) | Visual flowchart of race condition prevention |
-| [Architecture_AccountManagement.png](PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png) | Complete account management system architecture |
-| [Authentication_Flow.png](PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png) | Full authentication flow including email verification and password reset |
+#### **Auto_Recovery/** (`PhoenixFlix_OutputSamples/Auto_Recovery/`)
+- **System_Diagram_AutoRecovery.png**: High-level system architecture with PRIMARY/BACKUP databases
+- **Read_FallBack_Decision_AutoRecovery.png**: Decision tree for automatic read fallback logic
+- **App_StartUp_AutoRecovery.png**: Application startup sequence with health check system
 
-### **🗄️ Database Architecture**
+### **Application Screenshots**
+Located in `PhoenixFlix_OutputSamples/`:
 
-Database architecture diagrams in `PhoenixFlix_OutputSamples/DualDatabases/`:
+#### **Desktop (PC)**
+- Homepage and navigation
+- Movie browsing and search
+- LDS content section
+- Authentication flows (login, registration, passkeys)
+- Admin moderation panel
+- Guestbook features
+- Favorites and watchlist
 
-| Diagram | Description |
-|---------|-------------|
-| [Dual_write.png](PhoenixFlix_OutputSamples/DualDatabases/Dual_write.png) | Dual-write pattern for primary and backup databases |
-| [Read_Prime.png](PhoenixFlix_OutputSamples/DualDatabases/Read_Prime.png) | Read operations from primary database |
-| [Cross_db_Fallback.png](PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png) | Cross-database fallback mechanism |
+#### **Mobile (iOS & Android)**
+- Responsive design on mobile devices
+- Touch-optimized interface
+- Biometric authentication (Face ID, Touch ID)
+- Progressive Web App installation
+- Cross-platform consistency
 
-### **👨‍💼 Admin Features**
+### **Email Features**
+- Password reset email templates
+- Email verification confirmations
+- Professional SMTP integration
 
-Admin feature screenshots in `PhoenixFlix_OutputSamples/AdminRights/`:
-
-| Screenshot | Description |
-|-----------|-------------|
-| [Admin_SoftDelete.png](PhoenixFlix_OutputSamples/AdminRights/Admin_SoftDelete.png) | Soft delete interface with deletion reason |
-| [Deletion_Tracker.png](PhoenixFlix_OutputSamples/AdminRights/Deletion_Tracker.png) | Deletion tracking admin page with filtering |
-| [Content_Restoration_by_Admin.png](PhoenixFlix_OutputSamples/AdminRights/Content_Restoration_by_Admin.png) | Content restoration interface |
-| [Content_Refresh_Admin.png](PhoenixFlix_OutputSamples/AdminRights/Content_Refresh_Admin.png) | Weekly content refresh controls |
-| [Admin_Removal_Reason.png](PhoenixFlix_OutputSamples/AdminRights/Admin_Removal_Reason.png) | Deletion reason prompt for audit trail |
-| [Comment_Pending_Approval.png](PhoenixFlix_OutputSamples/AdminRights/Comment_Pending_Approval.png) | Guestbook moderation interface |
-
-### **💻 Desktop Screenshots (PC)**
-
-Complete desktop interface screenshots in `PhoenixFlix_OutputSamples/PC/`:
-
-| Feature | Screenshot |
-|---------|-----------|
-| **Homepage** | [PC_Homepage.png](PhoenixFlix_OutputSamples/PC_Homepage.png) |
-| **Movies Browse** | [PC_movies.png](PhoenixFlix_OutputSamples/PC/PC_movies.png) |
-| **Movie Details** | [PC_MovieDetails.png](PhoenixFlix_OutputSamples/PC/PC_MovieDetails.png) |
-| **LDS Content** | [PC_LDS.png](PhoenixFlix_OutputSamples/PC/PC_LDS.png) |
-| **Guestbook** | [PC_GB_intro.png](PhoenixFlix_OutputSamples/PC/PC_GB_intro.png) |
-| **Favorites** | [PC_FV.png](PhoenixFlix_OutputSamples/PC/PC_FV.png) |
-| **Watchlist** | [PC_WL.png](PhoenixFlix_OutputSamples/PC/PC_WL.png) |
-| **Login** | [PC_Login.png](PhoenixFlix_OutputSamples/PC/PC_Login.png) |
-| **Register** | [PC_Register.png](PhoenixFlix_OutputSamples/PC/PC_Register.png) |
-| **Passkey Setup** | [PC_Create_Passkey_AUTH.png](PhoenixFlix_OutputSamples/PC/PC_Create_Passkey_AUTH.png) |
-| **Passkey Login** | [PC_Login_with_Passkey.png](PhoenixFlix_OutputSamples/PC/PC_Login_with_Passkey.png) |
-| **Admin Panel** | [PC_Admins.png](PhoenixFlix_OutputSamples/PC/PC_Admins.png) |
-| **Manifesto** | [PC_Manifesto.png](PhoenixFlix_OutputSamples/PC/PC_Manifesto.png) |
-
-### **📱 Mobile Screenshots**
-
-#### **iOS Screenshots**
-
-Located in `PhoenixFlix_OutputSamples/iOS/`:
-
-| Feature | Screenshot |
-|---------|-----------|
-| **iOS App** | [iOS_App.PNG](PhoenixFlix_OutputSamples/iOS/iOS_App.PNG) |
-| **iOS Login** | [iOS_Login.PNG](PhoenixFlix_OutputSamples/iOS/iOS_Login.PNG) |
-| **iOS LDS** | [iOS_LDS.PNG](PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG) |
-| **Face ID** | [iOS_FaceID.jpg](PhoenixFlix_OutputSamples/iOS_FaceID.jpg) |
-| **Passkey** | [iOS_Passkey.jpg](PhoenixFlix_OutputSamples/iOS_Passkey.jpg) |
-| **Installation** | [iOS_Installation_Manual.PNG](PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG) |
-
-#### **Android Screenshots**
-
-Located in `PhoenixFlix_OutputSamples/Android/`:
-
-| Feature | Screenshot |
-|---------|-----------|
-| **Android App** | [Android_App.jpg](PhoenixFlix_OutputSamples/Android/Android_App.jpg) |
-| **Android LDS** | [Android_LDS.jpg](PhoenixFlix_OutputSamples/Android/Android_LDS.jpg) |
-| **Android Watchlist** | [Android_Watchlist.jpg](PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg) |
-| **Android Admins** | [Android_Admins.jpg](PhoenixFlix_OutputSamples/Android/Android_Admins.jpg) |
-
-### **📧 Email Templates**
-
-Password reset email templates in `PhoenixFlix_OutputSamples/Reset_Password_Email/`:
-
-| Template | Screenshot |
-|----------|-----------|
-| **Password Reset Request** | [PhoenixFlix_RequestPassword_Reset.jpg](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg) |
-| **Password Reset Email** | [PhoenixFlix_ResetPasswords_Email.jpg](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg) |
-| **Email Sent Confirmation** | [Password_Reset_Sent.png](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png) |
-| **Email Inbox View** | [Password_Reset_Email_Inbox.png](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png) |
-
-### **🔍 Search & Filtering**
-
-![Search Feature](PhoenixFlix_OutputSamples/Searching_Fetching_Filtering_Censoring.png)
-*Advanced search, filtering, and content moderation system*
-
-All diagrams and screenshots demonstrate production-ready features with enterprise-level polish and comprehensive documentation of the PhoenixFlix platform.
-
+All diagrams and screenshots demonstrate production-ready features with enterprise-level polish.
 
 ## 📞 Support
 
