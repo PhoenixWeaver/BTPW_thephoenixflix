@@ -721,7 +721,7 @@ graph TD
     W3 -- Data --> E;
     T1 -- Timer Fires --> E;
 
-![Pattern 2: Timeout](PhoenixFlix_OutputSamples/CEXs_GoRoutines/Pattern2_Timeout.png)
+![Pattern 2: Timeout](PhoenixFlix_OutputSamples/CEXs_GoRoutines/Pattern2_Select_Timeout.png)
 
 ##### Pattern 3: Worker Pools for Rate Limiting and Concurrency Control
 
