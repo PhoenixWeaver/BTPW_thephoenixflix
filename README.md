@@ -1,4 +1,3 @@
-
 🐦 ::: PhoenixFlix - Multi-Purpose Movies & Christian Streaming Platform :::  🔥
 
 # 🎬 PhoenixFlix - Movies & LDS Content Platform
@@ -11,16 +10,17 @@
 
 ## 🌟 **Vision & Inspiration**
 
-**PhoenixFlix** represents a groundbreaking fusion of entertainment and spirituality - a platform where families can enjoy both secular entertainment and uplifting Christian content under one roof. Born from the vision of creating a **Netflix of the Phoenix**, this platform bridges the gap between modern streaming technology and timeless spiritual values.
+**PhoenixFlix** represents a groundbreaking fusion of entertainment and spirituality - a platform where families can enjoy both secular entertainment and uplifting Christian content under one roof. Born from the vision of creating a platform where faith and entertainment coexist harmoniously.
 
 ### **🎯 Core Mission**
 To provide a **family-friendly streaming experience** that combines:
 - **Entertainment**: Access to quality movies and content
 - **Spirituality**: Uplifting Christian content including Bible videos, Christian songs, and LDS content
+- **Financial Tools**: Real-time currency exchange, cryptocurrency, and stock market data
 - **Community**: A platform where faith and entertainment coexist harmoniously
 
 ### **💡 The Inspiration**
-In a world where streaming platforms often compromise family values, PhoenixFlix was created to offer an alternative - a place where parents can confidently let their children explore content, knowing that both entertainment and spiritual nourishment are available in equal measure.
+In a world where streaming platforms often compromise family values, PhoenixFlix was created to offer an alternative - a platform where parents can confidently let their children explore content, knowing that both entertainment and spiritual nourishment are available in equal measure.
 
 ## 🏆 **Scope & Work Accomplished**
 
@@ -31,6 +31,7 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - **Advanced Authentication**: WebAuthn/Passkeys + JWT security
 - **Cross-Platform Integration**: TMDB + YouTube APIs
 - **Enterprise-Level Security**: Admin systems, middleware, validation
+- **Financial Data Integration**: Real-time CEXs (Currency, Crypto, Stocks) with advanced Go concurrency
 
 ### **💪 Technical Achievements**
 
@@ -44,7 +45,7 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 #### **🔐 Security & Authentication**
 - ✅ **Modern Passwordless Auth**: WebAuthn/Passkeys implementation
 - ✅ **JWT Token System**: Secure session management with 72-hour expiration
-- ✅ **Email Verification**: Token-based email confirmation system with 24-hour expiry
+- ✅ **Email Verification**: Token-based email confirmation with 24-hour expiry
 - ✅ **Password Reset**: Secure password reset via email tokens with 1-hour expiry
 - ✅ **SMTP Integration**: Production-grade email delivery via Vercel CDN
 - ✅ **Admin Role System**: Complete admin middleware with database-level permissions
@@ -56,7 +57,7 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 #### **📊 Database Engineering**
 - ✅ **Dual PostgreSQL Setup**: Movies database (Neon) + Christian content database (Aiven)
 - ✅ **Primary/Backup Database Architecture**: Dual-write pattern with automatic read fallback
-- ✅ **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP on database failures
+- ✅ **Automatic Read Fallback**: All read operations automatically fallback to BACKUP if PRIMARY fails
 - ✅ **Health Check System**: Periodic health checks (every 4 minutes) to keep BACKUP databases warm
 - ✅ **Optimistic Locking**: Version-based concurrency control for race condition prevention
 - ✅ **Cross-Database Relationships**: Bridge tables for unified user collections
@@ -70,11 +71,13 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - ✅ **Server-Side Rendering**: SEO-friendly movie detail pages
 - ✅ **Responsive Design**: Mobile-first approach
 - ✅ **Progressive Web App**: PWA capabilities with service workers
+- ✅ **Financial Data**: Real-time Currency, Crypto, and Stock (CEXs) data visualization.
 - ✅ **Component Architecture**: Modular JavaScript components
 
 #### **🔌 API Integration**
 - ✅ **TMDB Integration**: Complete movie database with 70,000+ entries
-- ✅ **YouTube API**: Christian content including Bible videos, Christian songs, and LDS content
+- ✅ **YouTube API**: Christian content including Bible videos, Christian songs, LDS content
+- ✅ **Financial APIs**: CoinGecko, ExchangeRate-API, Massive.com (Polygon) for currency, crypto, stocks
 - ✅ **RESTful API Design**: Clean, consistent endpoint structure
 - ✅ **Error Handling**: Comprehensive error responses and logging
 
@@ -135,6 +138,7 @@ This project showcases several **innovative approaches**:
 8. **Distributed Infrastructure**: Render (Backend) + Vercel (Frontend/Email CDN) architecture
 9. **Go Routines**: Efficient concurrent request handling with safe database operations
 10. **Automatic Read Fallback & Recovery**: Intelligent failover system with automatic database fallback and health checks
+11. **CEXs Module**: Real-time financial data with advanced Go concurrency patterns (channels, mutexes, worker pools)
 
 ## ✨ Features
 
@@ -154,9 +158,16 @@ This project showcases several **innovative approaches**:
 - **Family-Friendly**: Content filtering and age-appropriate content
 - **Featured Content**: Daily highlights and recommendations
 
+### 💱 CEXs Section (Currency Exchange & Market Data)
+- **Currency Rates**: Real-time fiat exchange rates (USD, EUR, JPY, VND, etc.)
+- **Cryptocurrencies**: Top crypto prices with multi-currency support
+- **Stocks**: Stock market data from major exchanges
+- **Concurrency Demo**: Educational showcase of Go concurrency patterns
+- **Rate Limit Modal**: Friendly reminder for API usage
+
 ### 👤 User Management
 - **Modern Authentication**: WebAuthn/Passkey (passwordless)
-- **JWT Tokens**: Secure session management
+- **JWT Tokens**: Secure session management with 72-hour validity
 - **Email Verification**: Token-based email confirmation with 24-hour expiry
 - **Password Reset**: Secure password reset via email tokens with 1-hour expiry
 - **Cross-Database Collections**: Users can favorite both movies and Christian content
@@ -171,64 +182,26 @@ This project showcases several **innovative approaches**:
 - **Database**: Dual PostgreSQL (NEON + AIVEN) - Movies + Christian Content
 - **Hosting**: Render (Backend API)
 - **Authentication**: JWT + WebAuthn/Passkeys
-- **APIs**: TMDB, YouTube
+- **APIs**: TMDB, YouTube, CoinGecko, ExchangeRate-API, Massive.com (Polygon)
 - **Concurrency**: Go Routines with Optimistic Locking for race condition prevention
 
 ### **Frontend**
 - **Technology**: Vanilla JavaScript SPA
-- **Hosting**: Vercel (Frontend & Email CDN)
-- **Features**: Server-Side Rendering (SSR) capabilities
-- **Responsive**: Mobile-first design
-- **PWA**: Progressive Web App features
+- **Hosting**: Vercel.com
+- **Framework**: Vanilla JavaScript SPA
+- **CDN**: Global edge network
+- **SSL**: Automatic HTTPS
 
-### **Database Architecture**
-- **Movies Database (Neon)**: Users, movies, favorites, watchlist, guestbook, **deleted_content tracking table**
-  - **PRIMARY Database**: Aiven PostgreSQL (source of truth)
-  - **BACKUP Database**: Neon PostgreSQL (automatic fallback for reads)
-- **Christian Content Database (Aiven)**: Bible videos, Christian songs, LDS content, spiritual ratings
-  - **PRIMARY LDS Database**: Aiven PostgreSQL (source of truth)
-  - **BACKUP LDS Database**: Neon PostgreSQL (automatic fallback for reads)
-  - **LDS Database Connection**: Configured via `DATABASE_URL_LDS` environment variable
-  - Current LDS databases:
-    - Development: `lds2025-lds2025.d.aivencloud.com` (Aiven)
-    - Production: `thephoenixflix-thephoenixflix.f.aivencloud.com` (Aiven)
-- **Cross-Database**: 
-  - Bridge tables for unified user experience
-  - **Deletion tracking centralized**: All deletions (movies and LDS) tracked in movies database `deleted_content` table
-- **Automatic Recovery System**:
-  - **Automatic Read Fallback**: All read operations automatically fallback to BACKUP if PRIMARY fails
-  - **Health Check System**: Background goroutine keeps BACKUP databases warm (prevents Neon cold starts)
-  - **Transparent Failover**: No user-visible errors when PRIMARY is down (BACKUP serves reads automatically)
-
-### **🔒 Race Condition Prevention with Optimistic Locking**
-
-PhoenixFlix implements **optimistic locking** to handle concurrent database operations safely, preventing race conditions in multi-user scenarios.
-
-#### **Key Features**
-- **Version-Based Concurrency Control**: Each user record includes a `version` field that increments on updates
-- **Atomic Operations**: Database updates verify version matches before committing
-- **Conflict Detection**: Automatically detects and handles concurrent modification attempts
-- **Retry Logic**: Smart retry mechanism for failed operations due to version conflicts
-
-#### **Implementation Highlights**
-- **Go Routines**: Efficient concurrent request handling
-- **Database Transactions**: ACID-compliant operations with version checking
-- **Error Handling**: Graceful degradation when conflicts occur
-- **Performance**: Minimal overhead while ensuring data integrity
-
-#### **Use Cases**
-- User profile updates by multiple devices
-- Simultaneous favorite/watchlist modifications
-- Concurrent guestbook submissions
-- Admin moderation actions
-
-<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png" alt="Optimistic Locking Sequence Diagram" width="700"/>
-*Figure 1: Optimistic locking sequence for concurrent user updates*
-
-<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png" alt="Optimistic Locking Flowchart" width="700"/>
-*Figure 2: Flowchart showing version-based conflict resolution*
-
-For detailed implementation, see optimistic locking diagrams in `PhoenixFlix_OutputSamples/Structures/`
+### **Database Providers**
+- **Neon PostgreSQL**: Modern serverless PostgreSQL
+  - Auto-scaling
+  - Branch-based development
+  - Built-in connection pooling
+  
+- **Aiven PostgreSQL**: Enterprise-grade database hosting
+  - High availability
+  - Automatic backups
+  - Cross-region replication
 
 ## 🚀 Quick Start
 
@@ -247,7 +220,7 @@ For detailed implementation, see optimistic locking diagrams in `PhoenixFlix_Out
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/PhoenixWeaver/phoenixflix.git
+git clone https://github.com/yourusername/phoenixflix.git
 cd phoenixflix
 ```
 
@@ -343,6 +316,11 @@ PhoenixFlix/
 - `GET /api/LDS/bible-videos` - Bible video content
 - `GET /api/LDS/christian-songs` - Christian music content
 
+### CEXs (Currency, Crypto, Stocks)
+- `GET /api/currency/rates?currencies=USD,EUR,GBP,JPY,VND,AUD` - Fiat currency rates
+- `GET /api/crypto/multi-currency?per_page=50&currencies=usd,eur,jpy,vnd,aud` - Cryptocurrency prices
+- `GET /api/stocks?symbols=AAPL,MSFT,GOOGL` - Stock market data
+
 ### Authentication
 - `POST /api/account/register` - User registration
 - `POST /api/account/authenticate` - User login
@@ -367,8 +345,8 @@ PhoenixFlix/
 
 PhoenixFlix implements a comprehensive account management system with enterprise-level security features.
 
-<img src="PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png" alt="Account Management Architecture" width="700"/>
-*Figure 3: Complete account management architecture*
+![Account Management Architecture](PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png)
+*Figure 3: Complete account management architecture diagram*
 
 ### **Email Verification Flow**
 1. **User Registration**: User registers with email and password
@@ -384,8 +362,8 @@ PhoenixFlix implements a comprehensive account management system with enterprise
 4. **Password Update**: User sets new password via token
 5. **Account Secured**: Password is updated and token invalidated
 
-<img src="PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png" alt="Authentication Flow" width="700"/>
-*Figure 4: Complete authentication flow including email verification and password reset*
+![Authentication Flow](PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png)
+*Figure 4: Full authentication flow including email verification and password reset*
 
 ### **Email Infrastructure**
 - **SMTP Integration**: Production-grade email delivery system
@@ -511,6 +489,9 @@ This project was born from a desire to create a **family-friendly alternative** 
 ### **🤝 Technical Partners**
 - **TMDB (The Movie Database)**: Providing comprehensive movie metadata and API access
 - **YouTube API**: Enabling seamless integration of Christian content including Bible videos, Christian songs, and LDS content
+- **CoinGecko**: Reliable cryptocurrency data provider
+- **ExchangeRate-API**: Accurate fiat currency exchange rates
+- **Massive.com (Polygon)**: Comprehensive stock market data
 - **YouTube Content Creators**: For providing uplifting Christian content, Bible teachings, and inspirational music
 - **Christian Community**: For inspiring content that strengthens faith and family values
 - **Neon**: Modern serverless PostgreSQL with auto-scaling and branch-based development
@@ -541,13 +522,13 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-<img src="PhoenixFlix_OutputSamples/DualDatabases/Dual_write.png" alt="Dual Write Pattern" width="600"/>
+![Dual Write Pattern](PhoenixFlix_OutputSamples/DualDatabases/Dual_write.png)
 *Dual-write pattern: Writes go to both primary and backup databases simultaneously*
 
-<img src="PhoenixFlix_OutputSamples/DualDatabases/Read_Prime.png" alt="Read from Primary" width="600"/>
+![Read from Primary](PhoenixFlix_OutputSamples/DualDatabases/Read_Prime.png)
 *Read operations use primary database only for optimal performance*
 
-<img src="PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png" alt="Cross-Database Fallback" width="600"/>
+![Cross-Database Fallback](PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png)
 *Cross-database fallback mechanism when primary is unavailable*
 
 #### **2. Admin Content Management** 🗑️
@@ -556,27 +537,28 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 - Soft delete for movies and LDS content
 - Deletion tracking with audit trail
 - Admin-only deletion with JWT authentication
+- Optional deletion reason logging
 - Restore functionality for deleted content
 - Deletion tracking admin page with filtering
 
 **Visual Demonstrations:**
 
-<img src="PhoenixFlix_OutputSamples/AdminRights/Admin_SoftDelete.png" alt="Admin Soft Delete" width="600"/>
+![Admin Soft Delete](PhoenixFlix_OutputSamples/AdminRights/Admin_SoftDelete.png)
 *Admin soft delete interface with deletion reason*
 
-<img src="PhoenixFlix_OutputSamples/AdminRights/Deletion_Tracker.png" alt="Deletion Tracker" width="600"/>
+![Deletion Tracker](PhoenixFlix_OutputSamples/AdminRights/Deletion_Tracker.png)
 *Deletion tracking admin page showing all deleted content with filtering*
 
-<img src="PhoenixFlix_OutputSamples/AdminRights/Content_Restoration_by_Admin.png" alt="Content Restoration" width="600"/>
+![Content Restoration](PhoenixFlix_OutputSamples/AdminRights/Content_Restoration_by_Admin.png)
 *Admin content restoration interface*
 
-<img src="PhoenixFlix_OutputSamples/AdminRights/Content_Refresh_Admin.png" alt="Content Refresh" width="600"/>
+![Content Refresh](PhoenixFlix_OutputSamples/AdminRights/Content_Refresh_Admin.png)
 *Weekly content refresh admin controls*
 
-<img src="PhoenixFlix_OutputSamples/AdminRights/Admin_Removal_Reason.png" alt="Admin Removal Reason" width="600"/>
+![Admin Removal Reason](PhoenixFlix_OutputSamples/AdminRights/Admin_Removal_Reason.png)
 *Admin deletion reason prompt for audit trail*
 
-<img src="PhoenixFlix_OutputSamples/AdminRights/Comment_Pending_Approval.png" alt="Comment Pending Approval" width="600"/>
+![Comment Pending Approval](PhoenixFlix_OutputSamples/AdminRights/Comment_Pending_Approval.png)
 *Admin guestbook moderation interface*
 
 #### **3. Account Management System** 👤
@@ -591,16 +573,16 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-<img src="PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png" alt="Architecture Overview" width="700"/>
+![Architecture Overview](PhoenixFlix_OutputSamples/Structures/Architecture_AccountManagement.png)
 *Complete account management architecture diagram*
 
-<img src="PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png" alt="Authentication Flow" width="700"/>
+![Authentication Flow](PhoenixFlix_OutputSamples/Structures/Authentication_Flow.png)
 *Full authentication flow including email verification and password reset*
 
-<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png" alt="Optimistic Locking Sequence" width="700"/>
+![Optimistic Locking Sequence](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Sequence_Diagram.png)
 *Sequence diagram for concurrent operations with optimistic locking*
 
-<img src="PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png" alt="Optimistic Locking Flowchart" width="700"/>
+![Optimistic Locking Flowchart](PhoenixFlix_OutputSamples/Structures/Optimistic_Locking_Flowchart.png)
 *Flowchart showing version-based conflict resolution*
 
 #### **4. Password Reset System** 🔐
@@ -613,100 +595,154 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="400"/>
+![Password Reset Request](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg)
 *Password reset request interface*
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="400"/>
+![Password Reset Email](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg)
 *Password reset email template*
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png" alt="Password Reset Sent" width="600"/>
+![Password Reset Sent](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png)
 *Confirmation message after password reset email is sent*
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png" alt="Password Reset Email Inbox" width="600"/>
+![Password Reset Email Inbox](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png)
 *Password reset email as received in inbox*
 
-#### **5. User Interface & Experience** 🎨
+#### **5. Automatic Read Fallback & Recovery System** 🔄
 
 **Features:**
-- Responsive design for desktop, tablet, and mobile
-- Progressive Web App (PWA) capabilities
-- Modern UI with smooth animations
-- Cross-platform consistency
+- **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP databases
+- **Zero-Downtime Reads**: Users continue to see content even when PRIMARY database is down
+- **Health Check System**: Background health checks (every 4 minutes) keep BACKUP databases warm
+- **Neon Cold Start Prevention**: Health checks prevent auto-suspend on free tier databases
+- **Transparent Operation**: No user-visible errors, automatic recovery
+- **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
 
-**Desktop Screenshots:**
+#### **6. Centralized Exchange with Goroutines
+While our final production code uses an efficient batch API (Massive.com), many real-world scenarios involve APIs that are slow or strictly rate-limited (e.g., one request per symbol). The `_DemoOnly` functions within `exchanges/CEXs_stocks.go` provide a practical playbook for handling these challenging situations using Go's powerful concurrency features.
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Homepage.png" alt="Homepage" width="600"/>
-*PhoenixFlix homepage with featured content*
+##### Pattern 1: Channels for Asynchronous Operations
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_movies.png" alt="Movies Page" width="600"/>
-*Movie browsing interface with search and filters*
+**Problem:** You need to fetch data from a slow API without blocking the main application thread.
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_MovieDetails.png" alt="Movie Details" width="600"/>
-*Detailed movie information page*
+**Solution:** Use a channel. A function can immediately return a channel and start the slow network operation in a separate goroutine. The main thread can continue its work and read the result from the channel whenever it's ready.
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_LDS.png" alt="LDS Content" width="600"/>
-*LDS content section with spiritual videos*
+**Example:** `FetchStockWithChannel_DemoOnly`
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_GB_intro.png" alt="Guestbook" width="600"/>
-*Community guestbook feature*
+```go
+// This function returns immediately, giving the caller a channel to wait on.
+func FetchStockWithChannel_DemoOnly(ctx context.Context, symbol string, demoKey string) <-chan StockResult {
+	resultChan := make(chan StockResult, 1)
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_FV.png" alt="Favorites" width="600"/>
-*User favorites collection*
+	// The slow work happens in this goroutine.
+	go func() {
+		// ... make HTTP request to Alpha Vantage ...
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_WL.png" alt="Watchlist" width="600"/>
-*User watchlist management*
+		// Send the result back through the channel.
+		resultChan <- StockResult{ ... }
+		close(resultChan)
+	}()
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Login.png" alt="Login" width="600"/>
-*User login interface*
+	return resultChan // Return the channel to the caller.
+}
+```
+**Timeouts are Critical:** A simple channel fetch can block forever if the API never responds. This leads to our next pattern.
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Register.png" alt="Register" width="600"/>
-*User registration interface*
+##### Pattern 2: `select` for Handling Timeouts
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Create_Passkey_AUTH.png" alt="Passkey Authentication" width="600"/>
-*WebAuthn/Passkey setup interface*
+**Problem:** An API call might hang indefinitely. You need to enforce a timeout to prevent your application from becoming unresponsive.
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Login_with_Passkey.png" alt="Login with Passkey" width="600"/>
-*Passwordless login using Passkeys*
+**Solution:** Use the `select` statement. It allows a goroutine to wait on multiple channel operations. We can combine our result channel with a timeout channel from `time.After`.
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Admins.png" alt="Admin Panel" width="600"/>
-*Admin moderation dashboard*
+**Example:** `FetchStockWithSelect_DemoOnly`
 
-<img src="PhoenixFlix_OutputSamples/PC/PC_Manifesto.png" alt="Manifesto" width="600"/>
-*PhoenixFlix mission and values*
+```go
+func FetchStockWithSelect_DemoOnly(ctx context.Context, symbol string, demoKey string, timeout time.Duration) (Stock, error) {
+	resultChan := make(chan StockResult, 1)
 
-**Mobile Screenshots (iOS):**
+	go func() {
+		// ... fetch logic ...
+		resultChan <- result
+	}()
 
-<img src="PhoenixFlix_OutputSamples/iOS/iOS_App.PNG" alt="iOS App" width="400"/>
-*iOS app interface*
+	// `select` will block until one of its cases is ready.
+	select {
+	case result := <-resultChan:
+		// Case 1: We received a result from our fetch operation.
+		return Stock{...}, nil
+	case <-time.After(timeout):
+		// Case 2: The timeout duration passed before we got a result.
+		return Stock{}, fmt.Errorf("timeout after %v", timeout)
+	}
+}
+```
 
-<img src="PhoenixFlix_OutputSamples/iOS/iOS_Login.PNG" alt="iOS Login" width="400"/>
-*iOS login screen*
+##### Pattern 3: Worker Pools for Rate Limiting and Concurrency Control
 
-<img src="PhoenixFlix_OutputSamples/iOS/iOS_LDS.PNG" alt="iOS LDS" width="400"/>
-*LDS content on iOS*
+**Problem:** You need to fetch data for 200 stocks, but the API only allows 5 calls per minute. Making 200 sequential calls would take 40 minutes. Making 200 concurrent calls would instantly get you blocked by the rate limiter.
 
-<img src="PhoenixFlix_OutputSamples/iOS_FaceID.jpg" alt="iOS Face ID" width="300"/>
-*Biometric authentication with Face ID*
+**Solution:** A worker pool. This pattern involves creating a fixed number of "worker" goroutines that pull tasks from a shared "jobs" channel. This allows you to process multiple requests in parallel while a central rate limiter controls how quickly new jobs are added to the queue.
 
-<img src="PhoenixFlix_OutputSamples/iOS_Passkey.jpg" alt="iOS Passkey" width="300"/>
-*Passkey authentication on iOS*
+**Example:** `FetchStocksWithWorkerPool_DemoOnly`
 
-<img src="PhoenixFlix_OutputSamples/iOS/iOS_Installation_Manual.PNG" alt="iOS Installation" width="400"/>
-*PWA installation instructions*
+```go
+func FetchStocksWithWorkerPool_DemoOnly(ctx context.Context, symbols []string, numWorkers int, demoKey string) map[string]Stock {
+    // 1. Create channels for jobs and results.
+    symbolChan := make(chan string, len(symbols))
+    resultChan := make(chan StockResult, len(symbols))
 
-**Mobile Screenshots (Android):**
+    // 2. Start a fixed number of worker goroutines.
+    //    Each worker pulls from `symbolChan` and sends to `resultChan`.
+    for i := 0; i < numWorkers; i++ {
+        go RunStockWorker_DemoOnly(ctx, i+1, symbolChan, resultChan, demoKey)
+    }
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_App.jpg" alt="Android App" width="300"/>
-*Android app interface*
+    // 3. Use a rate limiter (e.g., time.Ticker) to feed jobs to the workers
+    //    at a controlled pace, respecting the API's limits.
+    rateLimiter := time.NewTicker(12 * time.Second) // 5 calls per minute
+    defer rateLimiter.Stop()
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_LDS.jpg" alt="Android LDS" width="300"/>
-*LDS content on Android*
+    for _, symbol := range symbols {
+        <-rateLimiter.C // Wait for the ticker.
+        symbolChan <- symbol
+    }
+    close(symbolChan) // Signal that no more jobs will be sent.
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_Watchlist.jpg" alt="Android Watchlist" width="300"/>
-*Watchlist on Android*
+    // 4. Collect all the results.
+    results := make(map[string]Stock)
+    for i := 0; i < len(symbols); i++ {
+        result := <-resultChan
+        // ... process result ...
+    }
 
-<img src="PhoenixFlix_OutputSamples/Android/Android_Admins.jpg" alt="Android Admins" width="300"/>
-*Admin features on Android*
+    return results
+}
+```
+
+**Visual Demonstrations:**
+
+![System Architecture Diagram](PhoenixFlix_OutputSamples/Auto_Recovery/System_Diagram_AutoRecovery.png)
+*High-level system architecture showing PRIMARY/BACKUP databases and health check system*
+
+![Read Fallback Decision Tree](PhoenixFlix_OutputSamples/Auto_Recovery/Read_FallBack_Decision_AutoRecovery.png)
+*Decision tree showing automatic fallback logic when PRIMARY database fails*
+
+![Application Startup Flow](PhoenixFlix_OutputSamples/Auto_Recovery/App_StartUp_AutoRecovery.png)
+*Application startup sequence with database connection setup and health check initialization*
+
+**📚 Comprehensive Documentation:**
+
+For detailed implementation guides, see the AutoRecovery documentation in `BT_AutoRecover/`:
+
+- **[Analysis_Report_AutoRecovery.md](Analysis_Report_AutoRecovery.md)** - Complete technical analysis with architecture overview, implementation details, and code references
+- **[BUILD_ORDER_AutoRecovery.md](BUILD_ORDER_AutoRecovery.md)** - Step-by-step implementation checklist with 8 phases and testing strategies
+- **[FLOWCHARTS_AutoRecovery.md](FLOWCHARTS_AutoRecovery.md)** - Visual architecture diagrams, data flow diagrams, and implementation patterns
+
+**Key Benefits:**
+- ✅ **High Availability**: Application continues working even when PRIMARY database is down
+- ✅ **No Manual Intervention**: Automatic failover requires no administrator action
+- ✅ **Better User Experience**: Users see content instead of error messages
+- ✅ **Free Tier Compatible**: Health checks prevent Neon cold starts on free tier
+- ✅ **Production Ready**: Comprehensive error handling and logging for all scenarios
 
 **Automation Tools** (in root directory):
 - **[switch-environment.ps1](switch-environment.ps1)**: Automated environment switcher
@@ -753,7 +789,7 @@ Located in `PhoenixFlix_OutputSamples/`:
 - Progressive Web App installation
 - Cross-platform consistency
 
-### **Email Features**
+#### **Email Features**
 - Password reset email templates
 - Email verification confirmations
 - Professional SMTP integration
