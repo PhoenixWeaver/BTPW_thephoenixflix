@@ -595,16 +595,16 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations:**
 
-![Password Reset Request](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="600"/>
 *Password reset request interface*
 
-![Password Reset Email](PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="600"/>
 *Password reset email template*
 
-![Password Reset Sent](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png" alt="Password Reset Sent" width="600"/>
 *Confirmation message after password reset email is sent*
 
-![Password Reset Email Inbox](PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png)
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png" alt="Password Reset Email Inbox" width="600"/>
 *Password reset email as received in inbox*
 
 #### **5. Automatic Read Fallback & Recovery System** 🔄
@@ -617,7 +617,7 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 - **Transparent Operation**: No user-visible errors, automatic recovery
 - **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
 
-#### **6. Centralized Exchange with Goroutines
+#### **6. 💰 Centralized Exchanges CEXs with Goroutines 🔀
 While our final production code uses an efficient batch API (Massive.com), many real-world scenarios involve APIs that are slow or strictly rate-limited (e.g., one request per symbol). The `_DemoOnly` functions within `exchanges/CEXs_stocks.go` provide a practical playbook for handling these challenging situations using Go's powerful concurrency features.
 
 ##### Pattern 1: Channels for Asynchronous Operations
@@ -629,23 +629,48 @@ While our final production code uses an efficient batch API (Massive.com), many 
 **Example:** `FetchStockWithChannel_DemoOnly`
 
 ```go
-// This function returns immediately, giving the caller a channel to wait on.
 func FetchStockWithChannel_DemoOnly(ctx context.Context, symbol string, demoKey string) <-chan StockResult {
 	resultChan := make(chan StockResult, 1)
-
-	// The slow work happens in this goroutine.
 	go func() {
-		// ... make HTTP request to Alpha Vantage ...
-
-		// Send the result back through the channel.
-		resultChan <- StockResult{ ... }
+	resultChan <- StockResult{ ... }
 		close(resultChan)
 	}()
-
-	return resultChan // Return the channel to the caller.
+	return resultChan 
 }
 ```
 **Timeouts are Critical:** A simple channel fetch can block forever if the API never responds. This leads to our next pattern.
+
+**Pattern 1: Channels for Asynchronous Operations**
+
+This pattern allows a function to return immediately while a slow operation (like a network request) runs in the background. The result is delivered back through a channel.
+
+graph TD
+    subgraph "Main Goroutine"
+        A[Start: Call FetchStockWithSelect] --> B{Create resultChan}
+        B --> C{Launch Worker Goroutine}
+        C --> D{Enter 'select' block}
+        D --> E{Wait for first channel to respond}
+        E -->|Result received| F[Process successful result]
+        E -->|Timeout reached| G[Return timeout error]
+        F --> H[End]
+        G --> H
+    end
+
+    subgraph "Worker Goroutine"
+        I[Make HTTP Request to API] --> J[Receive API Response]
+        J --> K{Send result into resultChan}
+    end
+
+    subgraph "Timeout"
+        T[time.After(timeout) starts timer]
+    end
+
+    C --> I
+    K --> E
+    D --> T
+    T --> E
+
+![Pattern 1: Async Channel](PhoenixFlix_OutputSamples/CEXs_GoRoutines/Pattern1_Async_Channel.png)
 
 ##### Pattern 2: `select` for Handling Timeouts
 
@@ -658,23 +683,45 @@ func FetchStockWithChannel_DemoOnly(ctx context.Context, symbol string, demoKey 
 ```go
 func FetchStockWithSelect_DemoOnly(ctx context.Context, symbol string, demoKey string, timeout time.Duration) (Stock, error) {
 	resultChan := make(chan StockResult, 1)
-
 	go func() {
-		// ... fetch logic ...
 		resultChan <- result
 	}()
-
-	// `select` will block until one of its cases is ready.
 	select {
 	case result := <-resultChan:
-		// Case 1: We received a result from our fetch operation.
 		return Stock{...}, nil
 	case <-time.After(timeout):
-		// Case 2: The timeout duration passed before we got a result.
 		return Stock{}, fmt.Errorf("timeout after %v", timeout)
 	}
 }
 ```
+**Pattern 2: `select` for Handling Timeouts**
+
+This pattern prevents a slow API call from hanging the application by "racing" the operation against a timeout. The `select` statement proceeds with whichever case finishes first.
+
+graph TD
+    subgraph Main Goroutine
+        A[Start: Call FetchStockWithSelect] --> B{Create resultChan};
+        B --> C{Launch Worker Goroutine};
+        C --> D{Enter 'select' block};
+        D --> E{Wait for first channel to respond};
+        E -->|Result received| F[Process successful result];
+        E -->|Timeout reached| G[Return timeout error];
+        F --> H[End];
+        G --> H;
+    end
+    subgraph Worker Goroutine
+        C --> W1[Make HTTP Request to API];
+        W1 --> W2[Receive API Response];
+        W2 --> W3{Send result into resultChan};
+    end
+   
+    subgraph Timeout
+        D --> T1[time.After(timeout) starts timer];
+    end
+    W3 -- Data --> E;
+    T1 -- Timer Fires --> E;
+
+![Pattern 2: Timeout](PhoenixFlix_OutputSamples/CEXs_GoRoutines/Pattern2_Timeout.png)
 
 ##### Pattern 3: Worker Pools for Rate Limiting and Concurrency Control
 
@@ -686,37 +733,66 @@ func FetchStockWithSelect_DemoOnly(ctx context.Context, symbol string, demoKey s
 
 ```go
 func FetchStocksWithWorkerPool_DemoOnly(ctx context.Context, symbols []string, numWorkers int, demoKey string) map[string]Stock {
-    // 1. Create channels for jobs and results.
     symbolChan := make(chan string, len(symbols))
     resultChan := make(chan StockResult, len(symbols))
-
-    // 2. Start a fixed number of worker goroutines.
-    //    Each worker pulls from `symbolChan` and sends to `resultChan`.
     for i := 0; i < numWorkers; i++ {
         go RunStockWorker_DemoOnly(ctx, i+1, symbolChan, resultChan, demoKey)
     }
-
-    // 3. Use a rate limiter (e.g., time.Ticker) to feed jobs to the workers
-    //    at a controlled pace, respecting the API's limits.
-    rateLimiter := time.NewTicker(12 * time.Second) // 5 calls per minute
+rateLimiter := time.NewTicker(12 * time.Second) 
     defer rateLimiter.Stop()
-
     for _, symbol := range symbols {
-        <-rateLimiter.C // Wait for the ticker.
+        <-rateLimiter.C 
         symbolChan <- symbol
     }
-    close(symbolChan) // Signal that no more jobs will be sent.
-
-    // 4. Collect all the results.
+    close(symbolChan)
     results := make(map[string]Stock)
     for i := 0; i < len(symbols); i++ {
-        result := <-resultChan
-        // ... process result ...
+        result := <-resultChan   
     }
-
     return results
 }
 ```
+**Pattern 3: Worker Pool for Rate Limiting**
+
+This pattern controls concurrency and respects API rate limits. A "Feeder" adds jobs to a queue at a controlled rate, and a fixed number of "Workers" process those jobs in parallel.
+
+graph TD
+    subgraph Main Goroutine
+        A[Start: Call FetchStocksWithWorkerPool] --> B{Create jobsChan & resultsChan};
+        B --> C{Launch N Worker Goroutines};
+        B --> D{Launch Feeder Goroutine};
+        D --> E{Collect all results from resultsChan};
+        E --> F[End];
+    end
+    subgraph Feeder Goroutine
+        D --> F1{Loop through all symbols};
+        F1 --> F2{Wait for Rate Limiter Tick};
+        F2 --> F3{Send symbol to jobsChan};
+        F3 --> F1;
+        F1 -- All symbols sent --> F4[Close jobsChan];
+    end
+    subgraph Worker Goroutine 1
+        C --> W1_1{Wait for job from jobsChan};
+        W1_1 --> W1_2[Fetch API for symbol];
+        W1_2 --> W1_3{Send result to resultsChan};
+        W1_3 --> W1_1;
+    end
+   
+    subgraph Worker Goroutine 2
+        C --> W2_1{Wait for job from jobsChan};
+        W2_1 --> W2_2[Fetch API for symbol];
+        W2_2 --> W2_3{Send result to resultsChan};
+        W2_3 --> W2_1;
+    end
+    subgraph "..."
+        C --> WN_1["..."];
+    end
+    F3 -- Job --> W1_1;
+    F3 -- Job --> W2_1;
+    W1_3 -- Result --> E;
+    W2_3 -- Result --> E;
+
+![Pattern 3: Worker Pool](PhoenixFlix_OutputSamples/CEXs_GoRoutines/Pattern3_Worker_Pool.png)
 
 **Visual Demonstrations:**
 
