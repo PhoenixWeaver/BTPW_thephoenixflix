@@ -1,0 +1,39 @@
+graph TD
+    subgraph Main Goroutine
+        A[Start: Call FetchStocksWithWorkerPool] --> B{Create jobsChan & resultsChan};
+        B --> C{Launch N Worker Goroutines};
+        B --> D{Launch Feeder Goroutine};
+        D --> E{Collect all results from resultsChan};
+        E --> F[End];
+    end
+
+    subgraph Feeder Goroutine
+        D --> F1{Loop through all symbols};
+        F1 --> F2{Wait for Rate Limiter Tick};
+        F2 --> F3{Send symbol to jobsChan};
+        F3 --> F1;
+        F1 -- All symbols sent --> F4[Close jobsChan];
+    end
+
+    subgraph Worker Goroutine 1
+        C --> W1_1{Wait for job from jobsChan};
+        W1_1 --> W1_2[Fetch API for symbol];
+        W1_2 --> W1_3{Send result to resultsChan};
+        W1_3 --> W1_1;
+    end
+    
+    subgraph Worker Goroutine 2
+        C --> W2_1{Wait for job from jobsChan};
+        W2_1 --> W2_2[Fetch API for symbol];
+        W2_2 --> W2_3{Send result to resultsChan};
+        W2_3 --> W2_1;
+    end
+
+    subgraph "..."
+        C --> WN_1["..."];
+    end
+
+    F3 -- Job --> W1_1;
+    F3 -- Job --> W2_1;
+    W1_3 -- Result --> E;
+    W2_3 -- Result --> E;

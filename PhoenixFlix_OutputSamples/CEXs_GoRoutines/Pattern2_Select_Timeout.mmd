@@ -1,0 +1,24 @@
+graph TD
+    subgraph Main Goroutine
+        A[Start: Call FetchStockWithSelect] --> B{Create resultChan};
+        B --> C{Launch Worker Goroutine};
+        C --> D{Enter 'select' block};
+        D --> E{Wait for first channel to respond};
+        E -->|Result received| F[Process successful result];
+        E -->|Timeout reached| G[Return timeout error];
+        F --> H[End];
+        G --> H;
+    end
+
+    subgraph Worker Goroutine
+        C --> W1[Make HTTP Request to API];
+        W1 --> W2[Receive API Response];
+        W2 --> W3{Send result into resultChan};
+    end
+    
+    subgraph Timeout
+        D --> T1[time.After(timeout) starts timer];
+    end
+
+    W3 -- Data --> E;
+    T1 -- Timer Fires --> E;
