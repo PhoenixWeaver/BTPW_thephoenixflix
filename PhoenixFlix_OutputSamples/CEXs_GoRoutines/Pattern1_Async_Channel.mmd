@@ -1,0 +1,18 @@
+graph TD
+    subgraph Main Goroutine
+        A[Start: Call FetchStockWithChannel] --> B{Create resultChan};
+        B --> C{Launch Worker Goroutine};
+        C --> D[Return resultChan immediately];
+        D --> E{Block waiting for result from chan};
+        E --> F[Process result];
+        F --> G[End];
+    end
+
+    subgraph Worker Goroutine
+        C --> W1[Make HTTP Request to API];
+        W1 --> W2[Receive API Response];
+        W2 --> W3{Send result into resultChan};
+        W3 --> W4[Close resultChan];
+    end
+
+    W3 -- Data --> E;
