@@ -651,20 +651,13 @@ While our final production code uses an efficient batch API (Massive.com), many 
 **Example:** `FetchStockWithChannel_DemoOnly`
 
 ```go
-// This function returns immediately, giving the caller a channel to wait on.
 func FetchStockWithChannel_DemoOnly(ctx context.Context, symbol string, demoKey string) <-chan StockResult {
 	resultChan := make(chan StockResult, 1)
-
-	// The slow work happens in this goroutine.
 	go func() {
-		// ... make HTTP request to Alpha Vantage ...
-
-		// Send the result back through the channel.
 		resultChan <- StockResult{ ... }
 		close(resultChan)
 	}()
-
-	return resultChan // Return the channel to the caller.
+	return resultChan 
 }
 ```
 **Timeouts are Critical:** A simple channel fetch can block forever if the API never responds. This leads to our next pattern.
@@ -714,17 +707,12 @@ func FetchStockWithSelect_DemoOnly(ctx context.Context, symbol string, demoKey s
 	resultChan := make(chan StockResult, 1)
 
 	go func() {
-		// ... fetch logic ...
 		resultChan <- result
 	}()
-
-	// `select` will block until one of its cases is ready.
 	select {
 	case result := <-resultChan:
-		// Case 1: We received a result from our fetch operation.
 		return Stock{...}, nil
 	case <-time.After(timeout):
-		// Case 2: The timeout duration passed before we got a result.
 		return Stock{}, fmt.Errorf("timeout after %v", timeout)
 	}
 }
@@ -768,32 +756,21 @@ graph TD
 
 ```go
 func FetchStocksWithWorkerPool_DemoOnly(ctx context.Context, symbols []string, numWorkers int, demoKey string) map[string]Stock {
-    // 1. Create channels for jobs and results.
     symbolChan := make(chan string, len(symbols))
     resultChan := make(chan StockResult, len(symbols))
-
-    // 2. Start a fixed number of worker goroutines.
-    //    Each worker pulls from `symbolChan` and sends to `resultChan`.
     for i := 0; i < numWorkers; i++ {
         go RunStockWorker_DemoOnly(ctx, i+1, symbolChan, resultChan, demoKey)
     }
-
-    // 3. Use a rate limiter (e.g., time.Ticker) to feed jobs to the workers
-    //    at a controlled pace, respecting the API's limits.
-    rateLimiter := time.NewTicker(12 * time.Second) // 5 calls per minute
+    rateLimiter := time.NewTicker(12 * time.Second) 
     defer rateLimiter.Stop()
-
     for _, symbol := range symbols {
-        <-rateLimiter.C // Wait for the ticker.
+        <-rateLimiter.C 
         symbolChan <- symbol
     }
-    close(symbolChan) // Signal that no more jobs will be sent.
-
-    // 4. Collect all the results.
+    close(symbolChan) 
     results := make(map[string]Stock)
     for i := 0; i < len(symbols); i++ {
         result := <-resultChan
-        // ... process result ...
     }
 
     return results
