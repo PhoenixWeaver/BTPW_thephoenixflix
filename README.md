@@ -705,7 +705,6 @@ graph TD
 ```go
 func FetchStockWithSelect_DemoOnly(ctx context.Context, symbol string, demoKey string, timeout time.Duration) (Stock, error) {
 	resultChan := make(chan StockResult, 1)
-
 	go func() {
 		resultChan <- result
 	}()
@@ -759,20 +758,17 @@ func FetchStocksWithWorkerPool_DemoOnly(ctx context.Context, symbols []string, n
     symbolChan := make(chan string, len(symbols))
     resultChan := make(chan StockResult, len(symbols))
     for i := 0; i < numWorkers; i++ {
-        go RunStockWorker_DemoOnly(ctx, i+1, symbolChan, resultChan, demoKey)
-    }
+        go RunStockWorker_DemoOnly(ctx, i+1, symbolChan, resultChan, demoKey)    }
     rateLimiter := time.NewTicker(12 * time.Second) 
     defer rateLimiter.Stop()
     for _, symbol := range symbols {
         <-rateLimiter.C 
-        symbolChan <- symbol
-    }
+        symbolChan <- symbol    }
     close(symbolChan) 
     results := make(map[string]Stock)
     for i := 0; i < len(symbols); i++ {
         result := <-resultChan
     }
-
     return results
 }
 ```
