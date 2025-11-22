@@ -110,13 +110,21 @@ This is a **full-stack, production-ready application** that demonstrates mastery
     - Sort by date, title, or admin
     - Paginated results with statistics
     - Accessible from GuestbookAdminPage via "View Deletion Tracking" button
-- ✅ **Weekly Featured Content Refresh**: Admin-controlled content curation
+- ✅ **Weekly Featured Content Refresh**: Admin-controlled content curation 𓆩♡𓆪
   - Refresh weekly top movies by popularity or score
   - Refresh weekly LDS content by views, likes, or random shuffle
   - Fast refresh (existing data) or full refresh (TMDB update)
   - `weekly_top_movies` and `weekly_top_lds` cache tables
   - Admin dashboard buttons for easy refresh
   - Strict content filtering (LDS-only for LDS Features)
+- ✅ **Dynamic Era-Based Filtering & Admin Controls**: 🧬
+  - **Independent Homepage Filters**: Separate era-filtering dropdowns (1980s to present) for "Top Movies" and "Random Movies" sections.
+  - **Admin Default Eras**: New admin panel settings to control the default era displayed for both "Top Movies" and "Random Movies" for all users.
+  - **Era-Aware Search**: Search queries now respect the selected era from the "Top Movies" filter, allowing for more precise content discovery.
+  - **New Admin Endpoints**: Added APIs for getting and setting the default eras.
+  - **Robust Fallback**: The "Top Movies" section now gracefully falls back to "All Time" if the weekly list is unavailable.
+  - **New DB Table**: `admin_settings` table added to persist admin choices.
+
 
 ### **📈 Project Statistics**
 - **📁 Files**: 50+ Go files, 20+ JavaScript components
@@ -593,7 +601,7 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 - 1-hour token expiration
 - Professional email templates
 
-**Visual Demonstrations:**
+**Visual Demonstrations ˖°📷 ༘ :**
 
 <img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="600"/>
 *Password reset request interface*
@@ -607,7 +615,21 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 <img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Email_Inbox.png" alt="Password Reset Email Inbox" width="600"/>
 *Password reset email as received in inbox*
 
-#### **5. Automatic Read Fallback & Recovery System** 🔄
+#### **5. Back to the Future Movies Eras * ✧˖°🎬 ༘ ⋆｡˚
+
+The new Era-Based Filtering feature allows users and admins to travel through cinematic history, spotlighting content from different time periods.
+
+<img src="PhoenixFlix_OutputSamples/Evo_Movies_Eras/Search_for_movies_with_Genre_and_Score.png" alt="Back to the Future Era" width="600"/>
+*User can Search for Movies with Era and Genre and Score Filtering.*
+
+<img src="PhoenixFlix_OutputSamples/Evo_Movies_Eras/Admin_Initiate_Default_Era.png" alt="Admin_Initiate_Default_Era" width="600"/>
+*Admins can set the default era for each section, shaping the initial experience for all users.*
+
+<img src="PhoenixFlix_OutputSamples/Evo_Movies_Eras/User_Set_Movies_Era.png" alt="User_Set_Movies_Era" width="600"/>
+*Users can easily select a time period, and the content updates instantly without a page reload.*
+
+
+#### **6. Automatic Read Fallback & Recovery System** 🔄☯
 
 **Features:**
 - **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP databases
@@ -617,7 +639,7 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 - **Transparent Operation**: No user-visible errors, automatic recovery
 - **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
 
-#### **6. 💰 Centralized Exchanges CEXs with Goroutines 🔀
+#### **7. 💰 Centralized Exchanges CEXs with Goroutines 🔀
 While our final production code uses an efficient batch API (Massive.com), many real-world scenarios involve APIs that are slow or strictly rate-limited (e.g., one request per symbol). The `_DemoOnly` functions within `exchanges/CEXs_stocks.go` provide a practical playbook for handling these challenging situations using Go's powerful concurrency features.
 
 ##### Pattern 1: Channels for Asynchronous Operations
@@ -629,13 +651,20 @@ While our final production code uses an efficient batch API (Massive.com), many 
 **Example:** `FetchStockWithChannel_DemoOnly`
 
 ```go
+// This function returns immediately, giving the caller a channel to wait on.
 func FetchStockWithChannel_DemoOnly(ctx context.Context, symbol string, demoKey string) <-chan StockResult {
 	resultChan := make(chan StockResult, 1)
+
+	// The slow work happens in this goroutine.
 	go func() {
-	resultChan <- StockResult{ ... }
+		// ... make HTTP request to Alpha Vantage ...
+
+		// Send the result back through the channel.
+		resultChan <- StockResult{ ... }
 		close(resultChan)
 	}()
-	return resultChan 
+
+	return resultChan // Return the channel to the caller.
 }
 ```
 **Timeouts are Critical:** A simple channel fetch can block forever if the API never responds. This leads to our next pattern.
@@ -683,13 +712,19 @@ graph TD
 ```go
 func FetchStockWithSelect_DemoOnly(ctx context.Context, symbol string, demoKey string, timeout time.Duration) (Stock, error) {
 	resultChan := make(chan StockResult, 1)
+
 	go func() {
+		// ... fetch logic ...
 		resultChan <- result
 	}()
+
+	// `select` will block until one of its cases is ready.
 	select {
 	case result := <-resultChan:
+		// Case 1: We received a result from our fetch operation.
 		return Stock{...}, nil
 	case <-time.After(timeout):
+		// Case 2: The timeout duration passed before we got a result.
 		return Stock{}, fmt.Errorf("timeout after %v", timeout)
 	}
 }
@@ -733,22 +768,34 @@ graph TD
 
 ```go
 func FetchStocksWithWorkerPool_DemoOnly(ctx context.Context, symbols []string, numWorkers int, demoKey string) map[string]Stock {
+    // 1. Create channels for jobs and results.
     symbolChan := make(chan string, len(symbols))
     resultChan := make(chan StockResult, len(symbols))
+
+    // 2. Start a fixed number of worker goroutines.
+    //    Each worker pulls from `symbolChan` and sends to `resultChan`.
     for i := 0; i < numWorkers; i++ {
         go RunStockWorker_DemoOnly(ctx, i+1, symbolChan, resultChan, demoKey)
     }
-rateLimiter := time.NewTicker(12 * time.Second) 
+
+    // 3. Use a rate limiter (e.g., time.Ticker) to feed jobs to the workers
+    //    at a controlled pace, respecting the API's limits.
+    rateLimiter := time.NewTicker(12 * time.Second) // 5 calls per minute
     defer rateLimiter.Stop()
+
     for _, symbol := range symbols {
-        <-rateLimiter.C 
+        <-rateLimiter.C // Wait for the ticker.
         symbolChan <- symbol
     }
-    close(symbolChan)
+    close(symbolChan) // Signal that no more jobs will be sent.
+
+    // 4. Collect all the results.
     results := make(map[string]Stock)
     for i := 0; i < len(symbols); i++ {
-        result := <-resultChan   
+        result := <-resultChan
+        // ... process result ...
     }
+
     return results
 }
 ```
@@ -793,6 +840,7 @@ graph TD
     W2_3 -- Result --> E;
 
 ![Pattern 3: Worker Pool](PhoenixFlix_OutputSamples/CEXs_GoRoutines/Pattern3_Worker_Pool.png)
+
 
 **Visual Demonstrations:**
 
