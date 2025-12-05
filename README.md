@@ -602,10 +602,10 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 
 **Visual Demonstrations ˖°📷 ༘ :**
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="600"/>
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_RequestPassword_Reset.jpg" alt="Password Reset Request" width="400"/>
 *Password reset request interface*
 
-<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="600"/>
+<img src="PhoenixFlix_OutputSamples/Reset_Password_Email/PhoenixFlix_ResetPasswords_Email.jpg" alt="Password Reset Email" width="400"/>
 *Password reset email template*
 
 <img src="PhoenixFlix_OutputSamples/Reset_Password_Email/Password_Reset_Sent.png" alt="Password Reset Sent" width="600"/>
@@ -623,10 +623,10 @@ To celebrate the holiday season, a special Christmas theme was introduced, featu
 - **Dedicated Story Page (`Christmas.html`)**: A beautifully styled, standalone page that tells "The Phoenix and The Little Match Girl" story.
 - **Immersive Experience**: The page includes a falling snow animation, custom typography, and themed visuals to create a magical and hopeful holiday atmosphere.
 
-<img src="PhoenixFlix_OutputSamples/Christmas/Homepage_Christmas_theme.png" alt="Christmas Postcard on Homepage" width="600"/>
+<img src="PhoenixFlix_OutputSamples/Christmas/Homepage_Christmas_theme.png" alt="Christmas Postcard on Homepage" width="800"/>
 *The homepage features an interactive Christmas postcard with hover effects and a link to the story.*
 
-<img src="PhoenixFlix_OutputSamples/Christmas/Phoenix_and_MatchGirl.png" alt="Christmas Story Page" width="600"/>
+<img src="PhoenixFlix_OutputSamples/Christmas/Phoenix_and_MatchGirl.png" alt="Christmas Story Page" width="800"/>
 *The dedicated Christmas story page, telling a tale of hope and rebirth.*
 
 #### **6. Automatic Read Fallback & Recovery System** 🔄
