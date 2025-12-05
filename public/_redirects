@@ -1,5 +1,5 @@
 # API routes - proxy to Render backend
-/api/* https://phoenixflix.onrender.com/api/:splat 200
+/api/* https://phoenixflix.vercel.com/api/:splat 200
 
 # Static assets
 /*.js /:splat 200
