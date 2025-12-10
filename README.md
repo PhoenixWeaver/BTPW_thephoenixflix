@@ -125,6 +125,16 @@ This is a **full-stack, production-ready application** that demonstrates mastery
   - **Robust Fallback**: The "Top Movies" section now gracefully falls back to "All Time" if the weekly list is unavailable.
   - **New DB Table**: `admin_settings` table added to persist admin choices.
 
+- ✅ **Christmas Theme Filtering & Admin Controls**: 🎄
+  - **Themed Movie Filtering**: Christmas-themed movie filtering with keyword search in title and overview
+  - **Admin Default Theme**: Admins can set "christmas" as the global default theme for both Top Movies and Random Movies
+  - **Dual Section Support**: Christmas theme available for both homepage sections
+  - **Public Theme API**: Frontend can check current default theme via public endpoint
+  - **Consistent Pattern**: Follows the same implementation pattern as era-based filtering
+
+![Christmas Edition](PhoenixFlix_OutputSamples/Christmas/ChristmasEdition.png)
+*Christmas Edition feature with admin controls for Top Movies and Random Movies sections*
+
 ### **📈 Project Statistics**
 - **📁 Files**: 50+ Go files, 20+ JavaScript components
 - **🗄️ Databases**: 2 PostgreSQL instances with 15+ tables
@@ -347,6 +357,9 @@ PhoenixFlix/
 - `GET /api/admin/deleted-content` - Get deletion tracking records (admin only)
 - `PUT /api/admin/restore-movie/{id}` - Restore deleted movie (admin only)
 - `PUT /api/admin/restore-lds/{id}` - Restore deleted LDS content (admin only)
+
+- `POST /api/admin/set-default-theme` - Set the global default theme (e.g., 'christmas')
+- `GET /api/admin/default-theme` - Get the current default theme (public)
 
 ## 📧 Advanced Account Management
 
