@@ -246,12 +246,15 @@ This project showcases several **innovative approaches**:
 
 > **⚡ Quick Environment Switch:** Use `.\switch-environment.ps1 local` or `.\switch-environment.ps1 production` to toggle configurations
 
+> **🔧 Build Optimization:** Use `.\FULL_build-optimized.ps1` for production builds (handles Go binary + frontend minification)
+
 ### Prerequisites
 - Go 1.25+
 - PostgreSQL (Neon + Aiven recommended)
 - TMDB API Key
 - YouTube API Key (for Christian content)
 - Air (for local development with live reload)
+- Node.js (for frontend optimization)
 
 ### Installation
 
@@ -298,8 +301,22 @@ PORT=8080
 ```
 
 4. **Run the application**
+
+**Development:**
 ```bash
 go run .
+```
+
+**Production Build:**
+```bash
+# Optimized build (recommended for deployment)
+.\FULL_build-optimized.ps1
+
+# Alternative clean build (better error handling)
+.\FULL_build-optimized-clean.ps1
+
+# Manual optimization
+go build -ldflags="-s -w" -o phoenixflix-min.exe .
 ```
 
 5. **Access the application**
@@ -334,7 +351,6 @@ PhoenixFlix/
 ├── logger/                  # Custom logging system
 ├── token/                   # JWT authentication
 └── import/                  # Database import utilities
-```
 
 ## 🔧 API Endpoints
 
@@ -924,11 +940,13 @@ For detailed implementation guides, see the AutoRecovery documentation in `BT_Au
 
 | Component | Before | After | Savings |
 |-----------|--------|-------|---------|
-| **Go Binary** | ~15MB | ~10MB | **33%** |
-| **CSS Files** | ~50KB | ~25KB | **50%** |
-| **JS Files** | ~100KB | ~60KB | **40%** |
-| **Transfer (Gzip)** | 100% | ~30% | **70%** |
-| **Total Bundle** | ~15.2MB | ~10.1MB | **34%** |
+| **Go Binary** | ~15MB | 10.5MB | **30%** |
+| **styles.css** | 37.7KB | 23.5KB | **37.6%** |
+| **Newstyles.css** | 5.4KB | 0.6KB | **88.7%** |
+| **app.js** | 37KB | 13.7KB | **62.9%** |
+| **sw.js** | 9KB | 1KB | **88.4%** |
+| **Total Frontend** | 89.1KB | 38.8KB | **56.5%** |
+| **Total Savings** | - | **50.2KB** | - |
 
 **🔧 Optimization Features:**
 - ✅ **Route Consolidation**: Single handler for static pages (80% code reduction)
@@ -949,28 +967,38 @@ For detailed implementation guides, see the AutoRecovery documentation in `BT_Au
   - Provides recommendations
 
 **🚀 Production Optimization Tools:**
-- **[build-optimized.ps1](build-optimized.ps1)**: Complete production build
+- **[FULL_build-optimized.ps1](FULL_build-optimized.ps1)**: Complete production build
   - Optimizes Go binary (30% size reduction)
-  - Minifies CSS/JS assets (50% size reduction)
+  - Minifies CSS/JS assets (56.5% size reduction)
   - Creates `phoenixflix-min.exe` and `public/min/` assets
-  - Usage: `.\build-optimized.ps1`
+  - Usage: `.\FULL_build-optimized.ps1`
 
-- **[minify-manual.ps1](minify-manual.ps1)**: Frontend-only minification
-  - Manual CSS/JS minification (no npm dependencies)
-  - Basic but effective compression
-  - Usage: `.\minify-manual.ps1`
+- **[FULL_build-optimized-clean.ps1](FULL_build-optimized-clean.ps1)**: Alternative complete build
+  - Better error handling and detailed reporting
+  - Same optimization results as main script
+  - Usage: `.\FULL_build-optimized-clean.ps1`
+
+- **[FE_minify-npm-fixed.ps1](FE_minify-npm-fixed.ps1)**: Frontend-only minification (NPM)
+  - Professional NPM-based minification (50.2KB savings)
+  - Handles @import statements correctly
+  - Usage: `.\FE_minify-npm-fixed.ps1`
+
+- **[FE_minify-manual-simple.ps1](FE_minify-manual-simple.ps1)**: Frontend-only minification (Manual)
+  - Manual CSS/JS minification (38.8KB savings)
+  - No NPM dependencies required
+  - Usage: `.\FE_minify-manual-simple.ps1`
 
 **📦 Deployment Workflow:**
 ```bash
-# 1. Optimize for production
-.\build-optimized.ps1
+# 1. Optimize for production (recommended)
+.\FULL_build-optimized-clean.ps1
 
 # 2. Test optimized build
 .\phoenixflix-min.exe
 
 # 3. Deploy to GitHub (Render + Vercel auto-deploy)
 git add .
-git commit -m "Optimized production build"
+git commit -m "🚀 Optimized production build - 50.2KB savings"
 git push origin main
 ```
 
