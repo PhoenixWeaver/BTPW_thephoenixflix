@@ -71,13 +71,22 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - ✅ **Server-Side Rendering**: SEO-friendly movie detail pages
 - ✅ **Responsive Design**: Mobile-first approach
 - ✅ **Progressive Web App**: PWA capabilities with service workers
-- ✅ **Financial Data**: Real-time Currency, Crypto, and Stock (CEXs) data visualization.
+- ✅ **Financial Data V7**: Enhanced CEXs with user-centric design
 - ✅ **Component Architecture**: Modular JavaScript components
+- ✅ **Default Poster System**: PhoenixFlix branding for missing movie posters
+  - **Automatic Fallback**: Seamless fallback to PhoenixFlix logo
+  - **Consistent Branding**: Professional appearance across all movie displays
+  - **Universal Coverage**: Applied to homepage, search, favorites, details, SSR pages
 
 #### **🔌 API Integration**
 - ✅ **TMDB Integration**: Complete movie database with 70,000+ entries
 - ✅ **YouTube API**: Christian content including Bible videos, Christian songs, LDS content
-- ✅ **Financial APIs**: CoinGecko, ExchangeRate-API, Massive.com (Polygon) for currency, crypto, stocks
+- ✅ **Financial APIs V7**: Advanced CEXs with production-grade concurrency
+  - **Modular Architecture**: Clean separation (models, cache, service, examples, handler)
+  - **User-Responsive Limits**: Respects user input (40 cryptos = 40 shown)
+  - **Bulletproof Fallback**: Graceful degradation with cached data
+  - **Production Batch API**: Real-world stock data via Massive.com (Polygon)
+  - **Educational Examples**: Preserved concurrency patterns for learning
 - ✅ **RESTful API Design**: Clean, consistent endpoint structure
 - ✅ **Error Handling**: Comprehensive error responses and logging
 
@@ -132,7 +141,7 @@ This is a **full-stack, production-ready application** that demonstrates mastery
   - **Public Theme API**: Frontend can check current default theme via public endpoint
   - **Consistent Pattern**: Follows the same implementation pattern as era-based filtering
 
-![Christmas Edition](PhoenixFlix_OutputSamples/Christmas/ChristmasEdition.png)
+![TempleSqure Lights Theme](PhoenixFlix_OutputSamples/Christmas/ChristmasThemeLights.png)
 *Christmas Edition feature with admin controls for Top Movies and Random Movies sections*
 
 ### **📈 Project Statistics**
@@ -140,6 +149,9 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - **🗄️ Databases**: 2 PostgreSQL instances with 15+ tables
 - **🔗 API Endpoints**: 25+ RESTful endpoints
 - **🔐 Security Features**: JWT + WebAuthn + Admin middleware
+- **📊 Content**: 70,000+ movies + Christian content (Bible videos, Christian songs, LDS content)
+- **👥 User Features**: Registration, authentication, favorites, guestbook
+- **💱 CEXs V7**: Production-grade financial data with advanced Go concurrency + WebAuthn + Admin middleware
 - **📊 Content**: 70,000+ movies + Christian content (Bible videos, Christian songs, LDS content)
 - **👥 User Features**: Registration, authentication, favorites, guestbook
 
@@ -155,7 +167,13 @@ This project showcases several **innovative approaches**:
 8. **Distributed Infrastructure**: Render (Backend) + Vercel (Frontend/Email CDN) architecture
 9. **Go Routines**: Efficient concurrent request handling with safe database operations
 10. **Automatic Read Fallback & Recovery**: Intelligent failover system with automatic database fallback and health checks
-11. **CEXs Module**: Real-time financial data with advanced Go concurrency patterns (channels, mutexes, worker pools)
+11. **CEXs V7 Module**: Production-grade financial data system
+    - **Modular Architecture**: Clean package separation vs monolithic V5/V9
+    - **User-Responsive Design**: Respects input limits (40 cryptos = 40 shown)
+    - **Bulletproof Fallback**: Graceful degradation with cached data
+    - **Advanced Concurrency**: Singleflight + RWMutex + exponential backoff
+    - **Educational + Production**: Real-world patterns + learning examples
+12. **Smart Default Posters**: Automatic PhoenixFlix branding for missing movie images
 
 ## ✨ Features
 
@@ -175,12 +193,20 @@ This project showcases several **innovative approaches**:
 - **Family-Friendly**: Content filtering and age-appropriate content
 - **Featured Content**: Daily highlights and recommendations
 
-### 💱 CEXs Section (Currency Exchange & Market Data)
+### 💱 CEXs V7 Section (Currency Exchange & Market Data)
 - **Currency Rates**: Real-time fiat exchange rates (USD, EUR, JPY, VND, etc.)
-- **Cryptocurrencies**: Top crypto prices with multi-currency support
-- **Stocks**: Stock market data from major exchanges
-- **Concurrency Demo**: Educational showcase of Go concurrency patterns
-- **Rate Limit Modal**: Friendly reminder for API usage
+- **Cryptocurrencies V7**: Enhanced with user-responsive limits and fallback
+  - **User-Centric**: Shows exactly what user requests (40 cryptos = 40 displayed)
+  - **Graceful Fallback**: Cache fallback when API limits exceeded
+  - **Thread-Safe Caching**: Concurrent-safe operations with RWMutex
+- **Stocks V7**: Production-grade with batch API and 200+ fallback data
+  - **Batch Processing**: Real production API via Massive.com (Polygon)
+  - **Comprehensive Fallback**: 200+ stocks when API unavailable
+- **Advanced Concurrency V7**: Production patterns + educational examples
+  - **Singleflight Protection**: Prevents thundering herd problems
+  - **Exponential Backoff**: 1s → 2s → 4s with jitter for retries
+  - **Educational Examples**: Worker pools, channels, timeouts preserved
+- **Modular Architecture V7**: Clean separation vs monolithic V5/V9
 
 ### 👤 User Management
 - **Modern Authentication**: WebAuthn/Passkey (passwordless)
@@ -228,6 +254,8 @@ This project showcases several **innovative approaches**:
 - ✅ **Crash-Proof Email** - 3-tier fallback system (never crashes)
 - ✅ **Enterprise Security** - JWT + WebAuthn + Admin middleware
 - ✅ **Production Ready** - Zero-downtime deployment capability
+- ✅ **CEXs V7 Upgrade** - Production-grade financial data with advanced concurrency
+- ✅ **Smart Default Posters** - PhoenixFlix branding for missing movie images
 
 ### **Current Architecture Status**
 | Feature | Status | Benefit |
@@ -237,8 +265,10 @@ This project showcases several **innovative approaches**:
 | **Dual-Write** | ✅ **ACTIVE** | Data safety across databases |
 | **Admin Features** | ✅ **ACTIVE** | Content management & moderation |
 | **Email System** | ✅ **CRASH-PROOF** | Never fails (3-tier fallback) |
+| **CEXs V7** | ✅ **PRODUCTION** | User-responsive + bulletproof fallback |
+| **Default Posters** | ✅ **ACTIVE** | Consistent PhoenixFlix branding |
 
-> **💡 The PhoenixFlix app is running the most advanced failover system possible for free-tier databases!**
+> **💡 The PhoenixFlix app is running the most advanced failover system possible for free-tier databases + production-grade CEXs V7!**
 
 ## 🚀 Quick Start
 
@@ -369,10 +399,14 @@ PhoenixFlix/
 - `GET /api/LDS/bible-videos` - Bible video content
 - `GET /api/LDS/christian-songs` - Christian music content
 
-### CEXs (Currency, Crypto, Stocks)
+### CEXs V7 (Currency, Crypto, Stocks)
 - `GET /api/currency/rates?currencies=USD,EUR,GBP,JPY,VND,AUD` - Fiat currency rates
-- `GET /api/crypto/multi-currency?per_page=50&currencies=usd,eur,jpy,vnd,aud` - Cryptocurrency prices
-- `GET /api/stocks?symbols=AAPL,MSFT,GOOGL` - Stock market data
+- `GET /api/crypto/multi-currency?per_page=50&currencies=usd,eur,jpy,vnd,aud` - Enhanced cryptocurrency prices
+  - **User-Responsive**: Returns exactly what user requests (40 = 40 shown)
+  - **Graceful Fallback**: Cache fallback when API limits exceeded
+- `GET /api/stocks?symbols=AAPL,MSFT,GOOGL` - Production-grade stock data
+  - **Batch Processing**: Real production API via Massive.com (Polygon)
+  - **200+ Fallback**: Comprehensive fallback data when API unavailable
 
 ### Authentication
 - `POST /api/account/register` - User registration
@@ -561,6 +595,8 @@ This project was born from a desire to create a **family-friendly alternative** 
 - **WebAuthn Consortium**: For pioneering passwordless authentication standards
 - **PostgreSQL Community**: For robust database technology
 - **Open Source Contributors**: Whose work enables modern web development
+- **Christmas Theme inspired by ZeliAI**: For the creative inspiration behind the festive theme.
+- **Christmas Music provided by SEHERAZADA and Christmas Songs and Carols**: For providing a wonderful holiday soundtrack.
 - **Faith-Based Communities**: For inspiring the need for wholesome entertainment platforms
 
 ## 📚 Feature Documentation & Visual Guides
@@ -715,18 +751,68 @@ if h.mailer != nil {
 
 To celebrate the holiday season, a special Christmas theme was introduced, featuring an interactive story page that blends the classic tale of "The Little Match Girl" with the Phoenix's theme of hope and rebirth.
 
-**Features:**
-- **Interactive Homepage Postcard**: The homepage includes a festive, clickable postcard with hover effects that reveals thematic transformations and links to the full story. It also embeds a Christmas-themed video within a retro TV frame.
-- **Dedicated Story Page (`Christmas.html`)**: A beautifully styled, standalone page that tells "The Phoenix and The Little Match Girl" story.
-- **Immersive Experience**: The page includes a falling snow animation, custom typography, and themed visuals to create a magical and hopeful holiday atmosphere.
-
-<img src="PhoenixFlix_OutputSamples/Christmas/Homepage_Christmas_theme.png" alt="Christmas Postcard on Homepage" width="800"/>
-*The homepage features an interactive Christmas postcard with hover effects and a link to the story.*
+**Frontend Features:**
+- **Interactive Homepage Postcard**: A festive, clickable postcard on the homepage with hover effects that reveals thematic transformations and links to the full story.
+- **Dedicated Story Page (`Christmas.html`)**: A beautifully styled, standalone page that tells "The Phoenix and The Little Match Girl," a tale of hope and rebirth.
+- **Immersive Experience**: The theme includes a falling snow animation, custom typography, and themed visuals to create a magical holiday atmosphere.
+- **Christmas Light Theme**: Animated, multi-colored Christmas lights are strung across the top of the page, complete with a gentle twinkling effect to create a festive mood.
+- **Interactive Effects**:
+    - **Flying Santa**: A charming Santa Claus with his reindeer follows the user's mouse cursor around the screen.
+    - **Magic Sparkle Cursor**: The cursor leaves a trail of magical sparkles.
+    - **Click-to-Burst Fireworks**: Clicking anywhere on the page launches a small, colorful firework burst.
+- **Christmas Music Player**: An integrated music player with controls to play, pause, and skip through a festive YouTube playlist, providing a perfect holiday soundtrack.
+- **User-Controlled Effects**: A toggle button allows users to turn all visual effects (lights, Santa, fireworks) on or off, giving them control over their experience.
 
 <img src="PhoenixFlix_OutputSamples/Christmas/Phoenix_and_MatchGirl.png" alt="Christmas Story Page" width="800"/>
 *The dedicated Christmas story page, telling a tale of hope and rebirth.*
 
-#### **6. Automatic Read Fallback & Recovery System** 🔄
+<img src="PhoenixFlix_OutputSamples/Christmas/ChristmasThemeHome.png" alt="Christmas Postcard on Homepage" width="800"/>
+*The homepage features an interactive Christmas postcard with hover effects and a link to the story.*
+
+<img src="PhoenixFlix_OutputSamples/Christmas/ChristmasThemeSpirit.png" alt="Christmas Theme with Sprit Lights" width="800"/>
+*The Christmas Light Theme adds a festive, immersive atmosphere to the application.*
+
+#### **6. 🎵 YouTube Playlist Management System** 🎧
+
+**Features:**
+- **Admin Playlist Control**: Admins can change YouTube playlists from admin panel without code deployment
+- **User Personal Playlists**: Users can set their own YouTube playlists that persist across sessions
+- **Smart URL Parsing**: Accepts full YouTube URLs or direct video/playlist IDs
+- **Real-time Updates**: Music changes instantly without page refresh
+- **Reset to Default**: Users can easily return to admin-configured playlist
+
+**Admin Features:**
+- **Admin Panel Integration**: YouTube playlist management in `/admin/guestbook`
+- **Dual Mode Support**: Single video or full playlist configuration
+- **URL Validation**: Automatic extraction of video/playlist IDs from URLs
+- **Test Functionality**: Preview playlists before saving
+- **Database Persistence**: Settings stored in `admin_settings` table
+
+**User Features:**
+- **Personal Override**: ♡ 🎧ྀི button allows users to set custom playlists
+- **Persistent Storage**: User playlists saved in localStorage across sessions
+- **Easy Reset**: 🔄 button to return to admin default
+- **Instant Switching**: No page refresh required for playlist changes
+
+**Visual Demonstrations:**
+
+<img src="PhoenixFlix_OutputSamples/Christmas/ChristmasMusicAdminDefault.png" alt="Admin Default Christmas Music" width="800"/>
+*Admin-configured default Christmas music playing for all users*
+
+<img src="PhoenixFlix_OutputSamples/Christmas/ChristmasMusicByYou4U.png" alt="User Personal Playlist" width="800"/>
+*User's personal Christmas playlist with ♡ 🎧ྀི button and reset option*
+
+<img src="PhoenixFlix_OutputSamples/Christmas/ChristmasMusicResetDefault.png" alt="Reset to Admin Default" width="800"/>
+*Reset button (🔄) allows users to return to admin default playlist*
+
+**Technical Implementation:**
+- **Backend API**: `POST /api/admin/set-youtube-playlist` (Admin), `GET /api/admin/youtube-playlist` (Public)
+- **Frontend Integration**: Real-time playlist switching with YouTube IFrame API
+- **URL Parsing**: Supports `youtube.com/watch?v=ID`, `youtube.com/playlist?list=ID`, and direct IDs
+- **Storage**: Admin settings in PostgreSQL, user preferences in localStorage
+- **Event System**: Custom events for real-time playlist updates across pages
+
+#### **7. Automatic Read Fallback & Recovery System** 🔄
 
 **Features:**
 - **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP databases
@@ -736,7 +822,7 @@ To celebrate the holiday season, a special Christmas theme was introduced, featu
 - **Transparent Operation**: No user-visible errors, automatic recovery
 - **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
 
-#### **7. 💰 Centralized Exchanges CEXs with Goroutines 🔀
+#### **8. 💰 Centralized Exchanges CEXs with Goroutines 🔀
 While our final production code uses an efficient batch API (Massive.com), many real-world scenarios involve APIs that are slow or strictly rate-limited (e.g., one request per symbol). The `_DemoOnly` functions within `exchanges/CEXs_stocks.go` provide a practical playbook for handling these challenging situations using Go's powerful concurrency features.
 
 ##### Pattern 1: Channels for Asynchronous Operations
