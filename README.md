@@ -812,7 +812,51 @@ To celebrate the holiday season, a special Christmas theme was introduced, featu
 - **Storage**: Admin settings in PostgreSQL, user preferences in localStorage
 - **Event System**: Custom events for real-time playlist updates across pages
 
-#### **7. Automatic Read Fallback & Recovery System** 🔄
+#### **7. 🎄 Christmas Theme & Race Condition Resolution** ❄️
+
+**Features:**
+- **Seamless Page Navigation**: Music continues consistently between homepage and Christmas.html
+- **Race Condition Prevention**: Fixed random reset/keep behavior during page switching
+- **Session Synchronization**: Proper state management across browser tabs and page reloads
+- **Interactive Christmas Experience**: Full holiday theme with visual effects and music
+
+**Race Condition Fixes:**
+- **Page ID Tracking**: Each page instance gets unique ID to prevent self-restore loops
+- **Time-Limited States**: Music states expire after 5 minutes to prevent stale data
+- **Playlist State Preservation**: `isOnFixedPlaylist` and reset button visibility properly saved/restored
+- **Concurrent Save Prevention**: Added `isStateSaving` flag to prevent race conditions
+
+**Christmas Theme Elements:**
+- **Interactive Story Page**: "The Phoenix and The Little Match Girl" with immersive effects
+- **Visual Effects**: Christmas lights, flying Santa, fireworks, aurora, stars, nebula, comets
+- **Music Integration**: SEHERAZADA Christmas Songs for the Diaspora + Royalty Free fallback
+- **User Controls**: Toggle effects on/off, personal playlist override, volume control
+
+**Technical Implementation:**
+```javascript
+// Fixed race condition with page ID tracking
+let pageId = 'page_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+// Prevent same-page restore loops
+if (musicState.pageId === pageId) {
+    console.log('🎵 Same page detected, skipping restore');
+    return false;
+}
+
+// Time limits prevent stale state restoration
+if (timeDiff > 300000) { // 5 minutes
+    console.log('🎵 State too old, starting fresh');
+    return false;
+}
+```
+
+**Key Benefits:**
+- ✅ **Consistent Music Flow**: No more random resets when switching pages
+- ✅ **Proper Session Handling**: Music state preserved within browser session only
+- ✅ **Enhanced User Experience**: Seamless navigation with persistent audio
+- ✅ **Holiday Atmosphere**: Immersive Christmas theme with interactive elements
+
+#### **8. Automatic Read Fallback & Recovery System** 🔄
 
 **Features:**
 - **Automatic Read Fallback**: Intelligent failover from PRIMARY to BACKUP databases
@@ -822,7 +866,7 @@ To celebrate the holiday season, a special Christmas theme was introduced, featu
 - **Transparent Operation**: No user-visible errors, automatic recovery
 - **Comprehensive Coverage**: All read operations (movies, LDS, search, genres, etc.) support fallback
 
-#### **8. 💰 Centralized Exchanges CEXs with Goroutines 🔀
+#### **9. 💰 Centralized Exchanges CEXs with Goroutines 🔀
 While our final production code uses an efficient batch API (Massive.com), many real-world scenarios involve APIs that are slow or strictly rate-limited (e.g., one request per symbol). The `_DemoOnly` functions within `exchanges/CEXs_stocks.go` provide a practical playbook for handling these challenging situations using Go's powerful concurrency features.
 
 ##### Pattern 1: Channels for Asynchronous Operations
