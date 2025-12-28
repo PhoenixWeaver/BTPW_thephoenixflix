@@ -1,4 +1,4 @@
-# 🐦 ::: PhoenixFlix - Multi-Purpose Movies & Christian Streaming Platform :::  🔥
+# 🐦 ::: PhoenixFlix - Multi-Purpose Movies & Christian Streaming Platform :::  🔥 
 
 🎬 PhoenixFlix - Multi-Purpose Movies & Christian Streaming Platform & CEXs Concurrencies 
 
