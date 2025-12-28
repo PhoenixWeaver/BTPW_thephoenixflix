@@ -8,6 +8,14 @@
 > 
 > **⭐ Recommended:** Fresh Repository deployment (Option A) for clean V2
 
+==============================================================================================================================
+> **🚀 Portfolio Highlight:**
+> This repository includes **PrecisionBooks Accounting**, a professional standalone demo site.
+> It shares the same domain and codebase infrastructure as PhoenixFlix but operates as an independent module.
+>
+> **[View Live Accounting Demo](https://phoenixflix.vercel.app/AccFirmDemo)** | [View Source Code](./public/AccountingFirmDemo)
+===============================================================================================================================
+
 ## 🌟 **Vision & Inspiration**
 
 **PhoenixFlix** represents a groundbreaking fusion of entertainment and spirituality - a platform where families can enjoy both secular entertainment and uplifting Christian content under one roof. Born from the vision of creating a platform where faith and entertainment coexist harmoniously.
@@ -1340,4 +1348,6 @@ This project is **production-ready** and demonstrates enterprise-level software 
 # PhoenixflixChristmasBundle
 # PhoenixflixChristmas4U
 # PhoenixflixChristmas4U
-#
+#   P h o e n i x f l i x C h r i s t m a s V 1 3 
+ 
+ 
