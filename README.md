@@ -8,13 +8,14 @@
 > 
 > **⭐ Recommended:** Fresh Repository deployment (Option A) for clean V2
 
-==============================================================================================================================
+=========================================================================================================
 > **🚀 Portfolio Highlight:**
 > This repository includes **PrecisionBooks Accounting**, a professional standalone demo site.
 > It shares the same domain and codebase infrastructure as PhoenixFlix but operates as an independent module.
 >
-> **[View Live Accounting Demo](https://phoenixflix.vercel.app/AccFirmDemo)** | [View Source Code](./public/AccountingFirmDemo)
-===============================================================================================================================
+> **[✍View Live Accounting Demo](https://phoenixflix.vercel.app/AccFirmDemo)** | [View Source Code](./public/AccountingFirmDemo)
+> **📚 New WordPress Demo:** [https://phoenixflix.vercel.app/WordPressDemo](https://phoenixflix.vercel.app/WordPressDemo)
+===========================================================================================================
 
 ## 🌟 **Vision & Inspiration**
 
@@ -171,9 +172,10 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - **🔐 Security Features**: JWT + WebAuthn + Admin middleware
 - **📊 Content**: 70,000+ movies + Christian content (Bible videos, Christian songs, LDS content)
 - **👥 User Features**: Registration, authentication, favorites, guestbook
-- **💱 CEXs V13**: Production-grade financial data with real cached data system + Go routines demo
+- **💱 CEXs V16**: Production-grade financial data with multi-API fallback system
 - **🚀 Database Optimization V12**: Production-grade connection resilience + singleflight patterns + streaming processor
-- **🔀 Go Routines Demo**: Interactive concurrency demonstration with real cryptocurrency data
+- **🔀 Go Routines Demo V16**: Interactive concurrency demonstration with enterprise-grade patterns
+- **🛡️ Multi-API Reliability**: Polygon + Finnhub fallback for 99.9% uptime
 
 ### **🎖️ Technical Innovation**
 This project showcases several **innovative approaches**:
@@ -187,8 +189,9 @@ This project showcases several **innovative approaches**:
 8. **Distributed Infrastructure**: Render (Backend) + Vercel (Frontend/Email CDN) architecture
 9. **Go Routines**: Efficient concurrent request handling with safe database operations
 10. **Automatic Read Fallback & Recovery**: Intelligent failover system with automatic database fallback and health checks
-- **CEXs V13 Module**: Production-grade financial data system with intelligent status handling
-    - **Modular Architecture**: Clean package separation vs monolithic V5/V9
+- **CEXs V16 Module**: Production-grade financial data system with multi-API fallback
+    - **Multi-API Architecture**: Polygon + Finnhub redundancy for 99.9% uptime
+    - **Intelligent Error Detection**: Specific status messages for auth, rate limits, market closure
     - **User-Responsive Design**: Respects input limits (40 cryptos = 40 shown)
     - **Bulletproof Fallback**: Graceful degradation with cached data
     - **Advanced Concurrency**: Singleflight + RWMutex + exponential backoff
@@ -227,29 +230,31 @@ This project showcases several **innovative approaches**:
 - **Family-Friendly**: Content filtering and age-appropriate content
 - **Featured Content**: Daily highlights and recommendations
 
-### 💱 CEXs V13 Section (Currency Exchange & Market Data)
+### 💱 CEXs V16 Section (Currency Exchange & Market Data)
 - **Currency Rates**: Real-time fiat exchange rates (USD, EUR, JPY, VND, etc.)
-- **Cryptocurrencies V13**: Enhanced with real cached data and transparency
+- **Cryptocurrencies V16**: Enhanced with multi-API fallback and transparency
   - **Real Cached Data**: Uses actual API responses instead of fake fallback data
   - **Data Transparency**: Shows cache age ("Last updated: 15m ago")
   - **User-Centric**: Shows exactly what user requests (40 cryptos = 40 displayed)
   - **Graceful Fallback**: Cache fallback when API limits exceeded
   - **Thread-Safe Caching**: Concurrent-safe operations with RWMutex
-- **Stocks V13**: Production-grade with batch API and intelligent status messages
-  - **Batch Processing**: Real production API via Massive.com (Polygon)
+- **Stocks V16**: Production-grade with multi-API fallback and intelligent status messages
+  - **Multi-API System**: Polygon + Finnhub redundancy for 99.9% uptime
   - **Real Cached Data**: Stores actual stock prices from successful API calls
   - **Smart Status Messages**: Market closure detection (weekends/holidays) with user-friendly explanations
   - **Rate Limit Handling**: Professional error messages for API limits and connection issues
+  - **API Migration Ready**: Prepared for Polygon → Massive transition
 - **🚀 Go Routines Live Demo**: Interactive concurrency demonstration
   - **Real-Time Visualization**: Server-Sent Events streaming worker progress
   - **Educational Patterns**: Channels, select timeouts, worker pools
   - **Production Examples**: Patterns used by Netflix, YouTube, tech giants
   - **Thread-Safe Operations**: Mutex locks, channel communication, rate limiting
-- **Advanced Concurrency V13**: Production patterns + educational examples
+- **Advanced Concurrency V16**: Production patterns + educational examples
   - **Singleflight Protection**: Prevents thundering herd problems
   - **Exponential Backoff**: 1s → 2s → 4s with jitter for retries
   - **Real Data Integration**: Go routines demo uses cached real cryptocurrency prices
-- **Modular Architecture V13**: Clean separation with real cached data system
+  - **Multi-API Fallback**: Enterprise-grade redundancy patterns
+- **Modular Architecture V16**: Clean separation with multi-API fallback system
 
 ### 👤 User Management
 - **Modern Authentication**: WebAuthn/Passkey (passwordless)
@@ -297,7 +302,7 @@ This project showcases several **innovative approaches**:
 - ✅ **Crash-Proof Email** - 3-tier fallback system (never crashes)
 - ✅ **Enterprise Security** - JWT + WebAuthn + Admin middleware
 - ✅ **Production Ready** - Zero-downtime deployment capability
-- ✅ **CEXs V13 Upgrade** - Real cached data system + Go routines live demo
+- ✅ **CEXs V16 Upgrade** - Multi-API fallback system + Go routines live demo
 - ✅ **Database Optimization V12** - Enterprise connection resilience + singleflight patterns
 - 🚧 **PWA Implementation V13** - Native app experience (In Development)
 - ✅ **Smart Default Posters** - PhoenixFlix branding for missing movie images
@@ -311,13 +316,13 @@ This project showcases several **innovative approaches**:
 | **Dual-Write** | ✅ **ACTIVE** | Data safety across databases |
 | **Admin Features** | ✅ **ACTIVE** | Content management & moderation |
 | **Email System** | ✅ **CRASH-PROOF** | Never fails (3-tier fallback) |
-| **CEXs V13** | ✅ **PRODUCTION** | Real cached data + Go routines demo |
+| **CEXs V16** | ✅ **PRODUCTION** | Multi-API fallback + Go routines demo |
 | **Database Optimization V12** | ✅ **ENTERPRISE** | 90% query reduction + streaming processor + monitoring |
 | **PWA Implementation V13** | 🚧 **IN DEVELOPMENT** | Native app experience + offline functionality |
 | **Default Posters** | ✅ **ACTIVE** | Consistent PhoenixFlix branding |
 | **Go Routines Demo** | ✅ **EDUCATIONAL** | Interactive concurrency with real data |
 
-> **💡 The PhoenixFlix app is running enterprise-grade database optimization with singleflight patterns + streaming processor for memory-safe large dataset processing + production monitoring with pprof + the most advanced failover system possible for free-tier databases + production-grade CEXs V13 with real cached data + interactive Go routines demo! V13 PWA features in development.**
+> **💡 The PhoenixFlix app is running enterprise-grade database optimization with singleflight patterns + streaming processor for memory-safe large dataset processing + production monitoring with pprof + the most advanced failover system possible for free-tier databases + production-grade CEXs V16 with multi-API fallback system + interactive Go routines demo! V13 PWA features in development.**
 
 ## 🚀 Quick Start
 
@@ -963,7 +968,7 @@ if (timeDiff > 300000) { // 5 minutes
 
 **Features:**
 - **Interactive Visual Demos**: Three comprehensive concurrency demonstrations with real-time visualization
-- **Real API Racing**: Live cryptocurrency API calls racing against each other using RACE_COINGECKO_API_KEY
+- **Real API Racing**: Live cryptocurrency API calls racing against each other using COINGECKO_API_KEY_RACE
 - **Educational Patterns**: Worker pools, circuit breakers, and API racing with Server-Sent Events
 - **Production Examples**: Real-world concurrency patterns used by Netflix, YouTube, and tech giants
 - **Navigation Integration**: Easily accessible via "🏁Race 🚦" link in main navigation menu
