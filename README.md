@@ -1,12 +1,12 @@
 # 🐦 ::: PhoenixFlix - Multi-Purpose Movies & Christian Streaming Platform :::  🔥
 
-🎬 PhoenixFlix - Multi-Purpose Movies & Christian Streaming Platform & CEXs Concurrencies 
+🎬 PhoenixFlix V17 - Multi-Purpose Movies & Christian Streaming Platform & CEXs Concurrencies 
 
-> **🚀 Ready to Deploy V2?** Start here: **[START_HERE.md](START_HERE.md)** - Quick deployment guide
+> **🚀 Ready to Deploy V17?** Start here: **[START_HERE.md](START_HERE.md)** - Quick deployment guide
 > 
 > **📚 Deployment Guides:** Comprehensive deployment documentation available in project documentation
 > 
-> **⭐ Recommended:** Fresh Repository deployment (Option A) for clean V2
+> **⭐ Recommended:** Fresh Repository deployment (Option A) for clean V17
 
 =========================================================================================================
 > **🚀 Portfolio Highlight:**
@@ -20,6 +20,12 @@
 ## 🌟 **Vision & Inspiration**
 
 **PhoenixFlix** represents a groundbreaking fusion of entertainment and spirituality - a platform where families can enjoy both secular entertainment and uplifting Christian content under one roof. Born from the vision of creating a platform where faith and entertainment coexist harmoniously.
+
+![PhoenixFlix Flame](public/images/PhoenixFlixFlame.png)
+*PhoenixFlix Flame Edition - Accessible entertainment for everyone*
+
+![PhoenixFlix Snow](public/images/PhoenixFlixSnow.png)
+*PhoenixFlix Winter Edition - Bringing warmth to the coldest seasons*
 
 ### **🎯 Core Mission**
 To provide a **family-friendly streaming experience** that combines:
@@ -68,7 +74,7 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - ✅ **Primary/Backup Database Architecture**: Dual-write pattern with automatic read fallback
 - ✅ **Automatic Read Fallback**: All read operations automatically fallback to BACKUP if PRIMARY fails
 - ✅ **Health Check System**: Periodic health checks (every 4 minutes) to keep BACKUP databases warm
-- ✅ **Database Optimization V12**: Enterprise-grade connection management
+- ✅ **Database Optimization V17**: Enterprise-grade connection management with auto-cleanup
   - **Connection Resilience**: Exponential backoff retry logic (1s→2s→4s→8s→16s)
   - **Singleflight Pattern**: Prevents duplicate queries, 90% reduction for popular content
   - **Connection Pooling**: Optimized resource management (25 max, 5 idle, 5min lifetime)
@@ -76,6 +82,8 @@ This is a **full-stack, production-ready application** that demonstrates mastery
   - **Streaming Processor**: Memory-safe processing for large datasets (prevents RAM explosions)
   - **Production Monitoring**: pprof integration for goroutine leak detection
   - **Context-Aware Goroutines**: Prevents memory leaks with proper cancellation
+  - **Auto-Cleanup System**: Automatic database log cleanup (every 4 minutes) prevents storage overflow
+  - **Configurable Health Checks**: `HEALTH_CHECK_MINUTES` environment variable for custom intervals
 - ✅ **Optimistic Locking**: Version-based concurrency control for race condition prevention
 - ✅ **Cross-Database Relationships**: Bridge tables for unified user collections
 - ✅ **Data Import Systems**: Automated TMDB and YouTube content integration
@@ -161,6 +169,17 @@ This is a **full-stack, production-ready application** that demonstrates mastery
   - **Dual Section Support**: Christmas theme available for both homepage sections
   - **Public Theme API**: Frontend can check current default theme via public endpoint
   - **Consistent Pattern**: Follows the same implementation pattern as era-based filtering
+- ✅ **TV Bulletin Management System V17**: 📺
+  - **Admin TV Bulletin Control**: Admins can configure YouTube videos for homepage TV display
+  - **Independent from Music Player**: Separate system from background music with dedicated controls
+  - **Direct iframe Implementation**: Optimized iframe-based display for better reliability
+  - **URL Conversion System**: Automatic conversion of YouTube URLs to embed format with autoplay
+  - **Admin Panel Integration**: TV bulletin management in admin guestbook page
+- ✅ **Version Management System V17**: 🔄
+  - **Automated Version Sync**: Single source of truth from .env APP_VERSION
+  - **Cross-File Consistency**: Automatic updates to package.json, sw.js, and index.html
+  - **PowerShell Automation**: `sync-version.ps1` script for seamless version management
+  - **Build Integration**: Version sync integrated into build processes
 
 ![TempleSqure Lights Theme](PhoenixFlix_OutputSamples/Christmas/ChristmasThemeLights.png)
 *Christmas Edition feature with admin controls for Top Movies and Random Movies sections*
@@ -172,8 +191,8 @@ This is a **full-stack, production-ready application** that demonstrates mastery
 - **🔐 Security Features**: JWT + WebAuthn + Admin middleware
 - **📊 Content**: 70,000+ movies + Christian content (Bible videos, Christian songs, LDS content)
 - **👥 User Features**: Registration, authentication, favorites, guestbook
-- **💱 CEXs V16**: Production-grade financial data with multi-API fallback system
-- **🚀 Database Optimization V12**: Production-grade connection resilience + singleflight patterns + streaming processor
+- **💱 CEXs V16.1**: Production-grade financial data with multi-API fallback & mobile optimization
+- **� Database Optimization V12**: Production-grade connection resilience + singleflight patterns + streaming processor
 - **🔀 Go Routines Demo V16**: Interactive concurrency demonstration with enterprise-grade patterns
 - **🛡️ Multi-API Reliability**: Polygon + Finnhub fallback for 99.9% uptime
 
@@ -238,6 +257,11 @@ This project showcases several **innovative approaches**:
   - **User-Centric**: Shows exactly what user requests (40 cryptos = 40 displayed)
   - **Graceful Fallback**: Cache fallback when API limits exceeded
   - **Thread-Safe Caching**: Concurrent-safe operations with RWMutex
+  - **Mobile Optimization V16.1**: Enterprise-grade protection against overfetching
+    - **Four-Layer Protection**: Multiple guards prevent simultaneous API calls
+    - **Smart Debouncing**: 8-second minimum interval for mobile stability
+    - **Event Throttling**: Prevents rapid-fire interactions
+    - **Lifecycle Management**: Auto-cleanup prevents memory leaks
 - **Stocks V16**: Production-grade with multi-API fallback and intelligent status messages
   - **Multi-API System**: Polygon + Finnhub redundancy for 99.9% uptime
   - **Real Cached Data**: Stores actual stock prices from successful API calls
@@ -303,7 +327,10 @@ This project showcases several **innovative approaches**:
 - ✅ **Enterprise Security** - JWT + WebAuthn + Admin middleware
 - ✅ **Production Ready** - Zero-downtime deployment capability
 - ✅ **CEXs V16 Upgrade** - Multi-API fallback system + Go routines live demo
-- ✅ **Database Optimization V12** - Enterprise connection resilience + singleflight patterns
+- ✅ **Database Optimization V17** - Enterprise connection resilience + singleflight patterns + auto-cleanup system
+- ✅ **TV Bulletin System V17** - Admin-controlled homepage TV display with YouTube integration
+- ✅ **TV Bulletin System V17** - Admin-controlled homepage TV display with YouTube integration
+- ✅ **Version Management V17** - Automated version sync across all project files
 - 🚧 **PWA Implementation V13** - Native app experience (In Development)
 - ✅ **Smart Default Posters** - PhoenixFlix branding for missing movie images
 - ✅ **Go Routines Demo** - Interactive concurrency education with real data
@@ -316,13 +343,15 @@ This project showcases several **innovative approaches**:
 | **Dual-Write** | ✅ **ACTIVE** | Data safety across databases |
 | **Admin Features** | ✅ **ACTIVE** | Content management & moderation |
 | **Email System** | ✅ **CRASH-PROOF** | Never fails (3-tier fallback) |
-| **CEXs V16** | ✅ **PRODUCTION** | Multi-API fallback + Go routines demo |
-| **Database Optimization V12** | ✅ **ENTERPRISE** | 90% query reduction + streaming processor + monitoring |
+| **CEXs V16.1** | ✅ **PRODUCTION** | Multi-API fallback + Mobile Optimization |
+| **Database Optimization V17** | ✅ **ENTERPRISE** | 90% query reduction + streaming processor + monitoring + auto-cleanup |
+| **TV Bulletin System V17** | ✅ **ACTIVE** | Admin-controlled homepage TV display |
+| **Version Management V17** | ✅ **ACTIVE** | Automated version sync across files |
 | **PWA Implementation V13** | 🚧 **IN DEVELOPMENT** | Native app experience + offline functionality |
 | **Default Posters** | ✅ **ACTIVE** | Consistent PhoenixFlix branding |
 | **Go Routines Demo** | ✅ **EDUCATIONAL** | Interactive concurrency with real data |
 
-> **💡 The PhoenixFlix app is running enterprise-grade database optimization with singleflight patterns + streaming processor for memory-safe large dataset processing + production monitoring with pprof + the most advanced failover system possible for free-tier databases + production-grade CEXs V16 with multi-API fallback system + interactive Go routines demo! V13 PWA features in development.**
+> **💡 The PhoenixFlix V17 app is running enterprise-grade database optimization with singleflight patterns + streaming processor for memory-safe large dataset processing + production monitoring with pprof + auto-cleanup system preventing storage overflow + the most advanced failover system possible for free-tier databases + production-grade CEXs V16 with multi-API fallback system + interactive Go routines demo + admin-controlled TV bulletin system! V13 PWA features in development.**
 
 ## 🚀 Quick Start
 
@@ -379,6 +408,13 @@ SMTP_USER=apikey_or_username
 SMTP_PASS=your_smtp_password
 SMTP_FROM=PhoenixFlix <no-reply@phoenixflix.app>
 SMTP_TLS=true
+
+# Database Health & Cleanup (V17 Features)
+HEALTH_CHECK_MINUTES=4
+AUTO_CLEAR_LOG=5
+
+# Version Management (V17)
+APP_VERSION=17
 
 # Server Port (defaults to 8080 if not set)
 PORT=8080
@@ -495,6 +531,8 @@ PhoenixFlix/
 - `GET /api/admin/database-health` - Real-time database connection statistics (admin only)
 - `POST /api/admin/set-default-theme` - Set the global default theme (e.g., 'christmas')
 - `GET /api/admin/default-theme` - Get the current default theme (public)
+- `POST /api/admin/set-tv-bulletin-url` - Set TV bulletin YouTube URL (admin only)
+- `GET /api/admin/tv-bulletin-url` - Get current TV bulletin URL (public)
 
 ### Production Monitoring
 - `GET /health` - Application health check
@@ -696,7 +734,21 @@ PhoenixFlix includes comprehensive documentation and visual demonstrations of al
 ![Cross-Database Fallback](PhoenixFlix_OutputSamples/DualDatabases/Cross_db_Fallback.png)
 *Cross-database fallback mechanism when primary is unavailable*
 
-#### **2. Admin Content Management** 🗑️
+#### **4. TV Bulletin Management System V17** 📺
+
+**Features:**
+- Admin-controlled homepage TV display
+- Independent YouTube video management
+- Real-time URL updates
+- Fallback to default playlist
+- Interactive TV controls with random video functionality
+
+**Visual Demonstrations:**
+
+![TV Bulletin System](PhoenixFlix_OutputSamples/PhoenixFlixTVbulletin.png)
+*TV Bulletin system with admin controls and interactive TV frame*
+
+#### **5. Admin Content Management** 🗑️
 
 **Features:**
 - Soft delete for movies and LDS content
@@ -1351,6 +1403,5 @@ This project is **production-ready** and demonstrates enterprise-level software 
 **The future of family-friendly streaming starts here.** 🎬✨#
 
 # PhoenixflixChristmasBundle
-# PhoenixflixChristmas4U
 # PhoenixflixChristmas4U
 #
