@@ -93,7 +93,6 @@ These are research directions from the prospectus and should not be read as comp
 ## Source Documents
 
 - [RF & Microwave Prospectus notes](./RFandMW_Prospectus.md)
-- [Ph.D. Prospectus Defense (PDF)](./Binh_Tran_PhD_Prospectus_Defense.pdf)
 
 ## Interpreting Performance Figures
 
