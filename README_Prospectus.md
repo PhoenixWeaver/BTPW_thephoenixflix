@@ -93,3 +93,11 @@ These are research directions from the prospectus and should not be read as comp
 ## Interpreting Performance Figures
 
 The source notes and defense describe multiple antenna versions, models, and test conditions. Their reported efficiency and SNR figures are configuration-specific; compare each value with its associated design and measurement/model conditions rather than treating all values as results from one antenna.
+
+------
+<!-- <hr>
+
+<p align="center">
+  <small><i>“Behold, O Lord, thou hast smitten us because of our iniquity... O Lord, look upon me in pity, and turn away thine anger from this thy weakness...”</i></small><br>
+  <small><i>“Lead me, guide me, walk beside me, help me find the way”</i></small>
+</p> -->

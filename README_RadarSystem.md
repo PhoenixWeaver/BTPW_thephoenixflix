@@ -103,3 +103,12 @@ The broader research background—including documented SATCOM antenna arrays, mi
 | [RadarSystem_Outlines.png](./images/RadarSystem_Outlines.png) | Presentation outline and study sections |
 | [RadarSystem_RadomeEnclosedActiveAntennaArrays.png](./images/RadarSystem_RadomeEnclosedActiveAntennaArrays.png) | Radome/array models and radiation-pattern comparison |
 | [RadarSystem_Conclusion.png](./images/RadarSystem_Conclusion.png) | Presentation conclusion slide |
+
+------
+---
+
+### Personal Reflections
+
+> *"Behold, O Lord, thou hast smitten us because of our iniquity... O Lord, look upon me in pity, and turn away thine anger from this thy weakness..."*
+
+> *"Lead me, guide me, walk beside me, help me find the way."*
