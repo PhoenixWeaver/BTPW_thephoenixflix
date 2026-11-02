@@ -1,4 +1,4 @@
-# Binh Tran — Ph.D. Prospectus Research
+# Ben Binh Tran — Ph.D. Prospectus Research
 
 Research in antenna arrays, satellite communications, microwave material characterization, and radome-aware radar systems conducted at Brigham Young University.
 
