@@ -90,10 +90,6 @@ These are research directions from the prospectus and should not be read as comp
 - Binh T. Tran and Karl F. Warnick, “Broadband, High Efficiency Dielectric Resonator Antenna for Satellite Communications,” IEEE APS-URSI Symposium, Boulder, Colorado, 2013. Listed as accepted in the defense document.
 - Binh T. Tran and Karl F. Warnick, “High Efficiency Dielectric Resonator Antenna Array Feeds for Satellite Communications,” IEEE Transactions on Antennas and Propagation. Listed as under review at the time of the 2013 defense.
 
-## Source Documents
-
-- [RF & Microwave Prospectus notes](./RFandMW_Prospectus.md)
-
 ## Interpreting Performance Figures
 
 The source notes and defense describe multiple antenna versions, models, and test conditions. Their reported efficiency and SNR figures are configuration-specific; compare each value with its associated design and measurement/model conditions rather than treating all values as results from one antenna.
